@@ -1,0 +1,222 @@
+package com.orekyuu.javatter.view;
+
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.HeadlessException;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.dnd.DropTarget;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
+import javax.swing.border.BevelBorder;
+
+import twitter4j.Status;
+import twitter4j.Twitter;
+import twitter4j.TwitterException;
+
+import com.orekyuu.javatter.account.TwitterManager;
+import com.orekyuu.javatter.controller.MainWindowController;
+import com.orekyuu.javatter.util.ImageManager;
+import com.orekyuu.javatter.util.ImageUploader;
+import com.orekyuu.javatter.util.TwitterUtil;
+import com.orekyuu.javatter.viewobserver.ImagePreviewViewObserber;
+import com.orekyuu.javatter.viewobserver.TweetViewObserver;
+import com.orekyuu.javatter.viewobserver.UserEventViewObserver;
+
+public class MainWindowView implements TweetViewObserver, ActionListener, UserEventViewObserver, ImagePreviewViewObserber
+{
+	private JFrame window;
+	private JButton tweetButton;
+	private JButton javaButton;
+	private JTextArea textArea;
+	private JLabel image;
+	private MainWindowController tweetController;
+	private JTabbedPane tab;
+	private JTabbedPane menuTab;
+	private TwitterUtil util;
+
+	public void create()
+			throws HeadlessException, IllegalStateException, TwitterException
+			{
+		this.util = new TwitterUtil();
+
+		Toolkit.getDefaultToolkit().setDynamicLayout(true);
+
+		this.window = new JFrame();
+		setTitle("未認証");
+		this.window.setSize(700, 600);
+		this.window.setIconImage(ImageManager.getInstance().getImage("javatter"));
+		this.window.setDefaultCloseOperation(3);
+		this.window.setResizable(false);
+
+		Container container = this.window.getContentPane();
+		container.setLayout(new BorderLayout());
+
+		JPanel tweetPanel = new JPanel();
+		tweetPanel.setLayout(new BorderLayout());
+
+		this.textArea = new JTextArea(5, 40);
+		this.textArea.setLineWrap(true);
+		this.textArea.addKeyListener(new KeyListener()
+		{
+			public void keyTyped(KeyEvent e)
+			{
+			}
+
+			public void keyReleased(KeyEvent e) {
+			}
+
+			public void keyPressed(KeyEvent e) {
+				if ((e.getModifiersEx() & 0x80) != 0) {
+					if (e.getKeyCode() == 10) {
+						MainWindowView.this.tweetButton.doClick();
+						MainWindowView.this.clear();
+					}
+					if (e.getKeyCode() == 74) {
+						MainWindowView.this.javaButton.doClick();
+						MainWindowView.this.clear();
+					}
+				}
+			}
+		});
+		JPanel p = new JPanel();
+		p.setLayout(new BorderLayout());
+		p.add(this.textArea, "Center");
+		this.tweetButton = new JButton("Tweet");
+		this.tweetButton.addActionListener(this);
+		p.add(this.tweetButton, "South");
+
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setLayout(new BorderLayout());
+		Image img = ImageManager.getInstance().getImage("preview");
+		this.image = new JLabel(new ImageIcon(img));
+		new DropTarget(this.image, new ImageUploader(this.util, this));
+		buttonPanel.add(this.image, "Center");
+		this.javaButton = new JButton("Javaビーム");
+		this.javaButton.addActionListener(this);
+		buttonPanel.add(this.javaButton, "South");
+
+		tweetPanel.add(p, "Center");
+		tweetPanel.add(buttonPanel, "After");
+
+		this.tab = new JTabbedPane();
+
+		this.menuTab = new JTabbedPane();
+		this.menuTab.setPreferredSize(new Dimension(250, 600));
+
+		JPanel mainPanel = new JPanel();
+		mainPanel.setLayout(new BorderLayout());
+		mainPanel.add(this.tab, "Center");
+		mainPanel.add(tweetPanel, "First");
+		mainPanel.setBorder(new BevelBorder(0));
+
+		JPanel menuPanel = new JPanel();
+		menuPanel.add(this.menuTab);
+		menuPanel.setBorder(new BevelBorder(0));
+
+		container.add(mainPanel, "Center");
+		container.add(this.menuTab, "After");
+
+		this.window.setVisible(true);
+			}
+
+	public void clearTab() {
+		this.tab.removeAll();
+	}
+
+	public void addUserStreamTab(String title, IJavatterTab jTab)
+	{
+		this.tab.addTab(title, jTab.getComponent());
+	}
+
+	public void addMenuTab(String title, IJavatterTab jTab)
+	{
+		this.menuTab.addTab(title, jTab.getComponent());
+	}
+
+	public void actionPerformed(ActionEvent arg0)
+	{
+		if (arg0.getSource().equals(this.tweetButton)) {
+			try {
+				this.tweetController.onTweet(this.textArea.getText(), this.util);
+			} catch (TwitterException e) {
+				e.printStackTrace();
+			}
+			this.textArea.setText("");
+		}
+		if (arg0.getSource().equals(this.javaButton)) {
+			try {
+				this.tweetController.shotJavaBeam(this.textArea.getText());
+			} catch (TwitterException e) {
+				e.printStackTrace();
+			}
+			this.textArea.setText("");
+		}
+	}
+
+	public void setTweetController(MainWindowController controller)
+	{
+		this.tweetController = controller;
+	}
+
+	public void onUserEvent(String type, Status status)
+	{
+		Twitter twitter = TwitterManager.getInstance().getTwitter();
+		if (type.equals("reply")) {
+			StringBuilder builder = new StringBuilder();
+			builder.append(this.textArea.getText());
+			builder.append("@");
+			builder.append(status.getUser().getScreenName());
+			builder.append(" ");
+			this.textArea.setText(builder.toString());
+			this.util.setReplyID(status);
+		} else if (type.equals("rt")) {
+			try {
+				this.util.rt(twitter, status);
+			} catch (TwitterException e) {
+				e.printStackTrace();
+			}
+		} else if (type.equals("fav")) {
+			this.util.fav(twitter, status);
+		} else if(type.equals("unfav")){
+			this.util.unfav(twitter, status);
+		} else {
+			throw new IllegalArgumentException("タイプ:" + type + "は存在していません");
+		}
+	}
+
+	public void setTitle(String screenName)
+	{
+		this.window.setTitle("Javatter(" + screenName + ")");
+	}
+
+	public void change(File file)
+	{
+		try {
+			Image img = ImageIO.read(file).getScaledInstance(100, 100, 4);
+			this.image.setIcon(new ImageIcon(img));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void clear()
+	{
+		Image img = ImageManager.getInstance().getImage("preview").getScaledInstance(100, 100, 4);
+		this.image.setIcon(new ImageIcon(img));
+	}
+}
