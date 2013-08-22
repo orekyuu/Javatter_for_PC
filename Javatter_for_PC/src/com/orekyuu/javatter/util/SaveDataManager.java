@@ -26,7 +26,6 @@ public class SaveDataManager{
 	 */
 	public void registerSaveData(SaveData saveData){
 		if(data.get(saveData.getDataName())==null){
-			System.out.println("register:"+saveData.getDataName());
 			data.put(saveData.getDataName(), saveData);
 			saveData.load();
 		}

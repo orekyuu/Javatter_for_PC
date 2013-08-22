@@ -86,7 +86,6 @@ public class PluginView implements PluginViewObserver, IJavatterTab{
 
 	@Override
 	public void addPluginConfigTab(String title, IJavatterTab tab) {
-		System.out.println(title+","+tab);
 		configMap.put(title, tab);
 	}
 }
