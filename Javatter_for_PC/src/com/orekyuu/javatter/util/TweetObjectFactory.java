@@ -112,13 +112,7 @@ public class TweetObjectFactory
 		userName.setText("@" + user.getScreenName() + " " + user.getName());
 		textPanel.add(userName);
 
-		String tweetText = this.status.getText();
-
-		if (this.status.isRetweet()) {
-			Status rt = this.status.getRetweetedStatus();
-			String deleteText = "RT @" + rt.getUser().getScreenName() + ": ";
-			tweetText = tweetText.replace(deleteText, "");
-		}
+		String tweetText = this.status.isRetweet() ? this.status.getRetweetedStatus().getText() : this.status.getText();
 
 		JTextPane textArea = new JTextPane();
 
