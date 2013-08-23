@@ -35,6 +35,13 @@ public class JavatterPluginLoader
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+
+		try{
+			URLClassLoader loader=(URLClassLoader) getClass().getClassLoader();
+			load(loader);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 
 
@@ -62,6 +69,23 @@ public class JavatterPluginLoader
 		Object obj=plugin.newInstance();
 		if(obj instanceof JavatterPlugin){
 			plugins.add((JavatterPlugin) obj);
+		}
+	}
+
+	private void load(ClassLoader loader) throws Exception
+	{
+		String path = System.getProperty("loadPlugins");
+		if (path != null) {
+			String[] pluginsPath = path.split(",");
+			if (pluginsPath != null && pluginsPath.length != 0) {
+				for (String pluginPath : pluginsPath) {
+					Class plugin = Class.forName(pluginPath);
+					Object obj = plugin.newInstance();
+					if (obj instanceof JavatterPlugin) {
+						plugins.add((JavatterPlugin)obj);
+					}
+				}
+			}
 		}
 	}
 }
