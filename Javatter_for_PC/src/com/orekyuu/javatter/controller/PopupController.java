@@ -113,7 +113,15 @@ public class PopupController extends UserStreamController{
 
 	@Override
 	public void onUnfavorite(User arg0, User arg1, Status arg2) {
-		model.onUnFav(arg0, arg2);
+		try {
+			if(!arg0.getScreenName().equals(TwitterManager.getInstance().getTwitter().getScreenName())){
+				model.onUnFav(arg0, arg2);
+			}
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (TwitterException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
