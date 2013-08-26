@@ -190,6 +190,7 @@ public abstract class JavatterPlugin
 		this.controller.addTweetObjectBuilder(builder);
 	}
 
+
 	/**
 	 * Javatterを表示しているViewを返す
 	 * @return
