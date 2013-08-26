@@ -189,4 +189,12 @@ public abstract class JavatterPlugin
 	public void addTweetObjectBuider(TweetObjectBuilder builder){
 		this.controller.addTweetObjectBuilder(builder);
 	}
+
+	/**
+	 * Javatterを表示しているViewを返す
+	 * @return
+	 */
+	protected MainWindowView getMainView(){
+		return view;
+	}
 }
