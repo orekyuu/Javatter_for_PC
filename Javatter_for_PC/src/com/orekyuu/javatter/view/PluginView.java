@@ -76,8 +76,6 @@ public class PluginView implements PluginViewObserver, IJavatterTab{
 	@Override
 	public void update(String[] pluginName,String[] version)
 	{
-		model.removeAllElements();
-		this.pluginName.clear();
 		for (int i=0;i<pluginName.length;i++){
 			model.addElement(pluginName[i]+" "+version[i]);
 			this.pluginName.add(pluginName[i]);

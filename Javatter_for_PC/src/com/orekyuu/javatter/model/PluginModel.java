@@ -17,6 +17,9 @@ public class PluginModel
 	{
 		this.list.add(name);
 		this.versionList.add(version);
+	}
+
+	public void notifyView(){
 		this.view.update((String[])this.list.toArray(new String[0]),(String[])this.versionList.toArray(new String[0]));
 	}
 

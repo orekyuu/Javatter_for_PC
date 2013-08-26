@@ -26,15 +26,19 @@ public class PluginController
 		pluginLoader.initPlugins(this, controller, view);
 		addPluginName("全般","");
 		addPluginConfig("全般", new JavatterPluginConfigTab());
+		notifyModel();
 	}
 
 	public void addPluginName(String str,String version) {
 		this.model.addPlugin(str,version);
 	}
 
-
 	public void addPluginConfig(String title,IJavatterTab tab) {
 		model.addPluginConfig(title,tab);
+	}
+
+	public void notifyModel(){
+		model.notifyView();
 	}
 
 }
