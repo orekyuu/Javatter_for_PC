@@ -49,9 +49,30 @@ public class MainWindowView implements TweetViewObserver, ActionListener, UserEv
 	private JTabbedPane menuTab;
 	private TwitterUtil util;
 
-	public void create()
-			throws HeadlessException, IllegalStateException, TwitterException
-			{
+	/**
+	 * ツイートを書くためのテキストエリアを返す
+	 * @return
+	 */
+	public JTextArea getTweetTextArea(){
+		return textArea;
+	}
+
+	/**
+	 * Javatterのフレームを返す
+	 * @return
+	 */
+	public JFrame getMainFrame(){
+		return window;
+	}
+
+	/**
+	 * 新しいWindowを作成する
+	 * @throws HeadlessException
+	 * @throws IllegalStateException
+	 * @throws TwitterException
+	 */
+	public void create() throws HeadlessException, IllegalStateException, TwitterException
+	{
 		this.util = new TwitterUtil();
 
 		Toolkit.getDefaultToolkit().setDynamicLayout(true);
@@ -132,17 +153,30 @@ public class MainWindowView implements TweetViewObserver, ActionListener, UserEv
 		container.add(this.menuTab, "After");
 
 		this.window.setVisible(true);
-			}
+	}
 
+	/**
+	 * ユーザーストリームタブをクリアする
+	 */
 	public void clearTab() {
 		this.tab.removeAll();
 	}
 
+	/**
+	 * ユーザーストリームタブに新規タブを追加
+	 * @param title
+	 * @param jTab
+	 */
 	public void addUserStreamTab(String title, IJavatterTab jTab)
 	{
 		this.tab.addTab(title, jTab.getComponent());
 	}
 
+	/**
+	 * メニュータブに新規タブを追加
+	 * @param title
+	 * @param jTab
+	 */
 	public void addMenuTab(String title, IJavatterTab jTab)
 	{
 		this.menuTab.addTab(title, jTab.getComponent());
@@ -168,11 +202,17 @@ public class MainWindowView implements TweetViewObserver, ActionListener, UserEv
 		}
 	}
 
+	/**
+	 * コントローラを設定
+	 */
 	public void setTweetController(MainWindowController controller)
 	{
 		this.tweetController = controller;
 	}
 
+	/**
+	 * ユーザーイベントを発生させる
+	 */
 	public void onUserEvent(String type, Status status)
 	{
 		Twitter twitter = TwitterManager.getInstance().getTwitter();
@@ -199,11 +239,18 @@ public class MainWindowView implements TweetViewObserver, ActionListener, UserEv
 		}
 	}
 
+	/**
+	 * タイトルを設定
+	 * @param screenName ログインしているアカウント名
+	 */
 	public void setTitle(String screenName)
 	{
 		this.window.setTitle("Javatter(" + screenName + ")");
 	}
 
+	/**
+	 * プレビューに画像を設定する
+	 */
 	public void change(File file)
 	{
 		try {
@@ -214,9 +261,13 @@ public class MainWindowView implements TweetViewObserver, ActionListener, UserEv
 		}
 	}
 
+	/**
+	 * プレビューをクリアする
+	 */
 	public void clear()
 	{
 		Image img = ImageManager.getInstance().getImage("preview").getScaledInstance(100, 100, 4);
 		this.image.setIcon(new ImageIcon(img));
+		util.setImage(null);
 	}
 }
