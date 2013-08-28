@@ -137,10 +137,10 @@ public class MainWindowController
 				try {
 					ResponseList<Status> status = TwitterManager.getInstance().getTwitter().getHomeTimeline();
 					ResponseList<Status> reply = TwitterManager.getInstance().getTwitter().getMentionsTimeline();
-					for (int i = status.size() - 1; i != 0; i--) {
+					for (int i = status.size() - 1; i >= 0; i--) {
 						userStreamController.onStatus((Status)status.get(i));
 					}
-					for (int i = reply.size() - 1; i != 0; i--){
+					for (int i = reply.size() - 1; i >= 0; i--){
 						replyController.onStatus((Status)reply.get(i));
 					}
 				}
