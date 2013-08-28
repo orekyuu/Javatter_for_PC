@@ -11,6 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -125,6 +127,33 @@ public class MainWindowView implements TweetViewObserver, ActionListener, UserEv
 		buttonPanel.setLayout(new BorderLayout());
 		Image img = ImageManager.getInstance().getImage("preview");
 		this.image = new JLabel(new ImageIcon(img));
+		image.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				clear();
+			}
+		});
 		new DropTarget(this.image, new ImageUploader(this.util, this));
 		buttonPanel.add(this.image, "Center");
 		this.javaButton = new JButton("Javaビーム");
