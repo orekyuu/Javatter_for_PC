@@ -21,6 +21,7 @@ import com.orekyuu.javatter.model.PopupModel;
 import com.orekyuu.javatter.model.ReplyModel;
 import com.orekyuu.javatter.model.TimeLineModel;
 import com.orekyuu.javatter.plugin.ITweetListener;
+import com.orekyuu.javatter.plugin.JavatterPluginLoader;
 import com.orekyuu.javatter.plugin.TweetObjectBuilder;
 import com.orekyuu.javatter.util.JavatterUserStream;
 import com.orekyuu.javatter.util.TwitterUtil;
@@ -39,7 +40,6 @@ public class MainWindowController
 	private MainWindowView view;
 	private JavatterUserStream userStream;
 	private List<ITweetListener> tweetListener=new ArrayList<ITweetListener>();
-	private List<TweetObjectBuilder> builders=new ArrayList<TweetObjectBuilder>();
 
 	public MainWindowController(MainWindowView view)
 	{
@@ -88,14 +88,14 @@ public class MainWindowController
 
 		UserStreamLogic timeline = new TimeLineModel();
 		final UserStreamController userStreamController = new UserStreamController();
-		TimeLineView tlView = new TimeLineView(this.view,builders);
+		TimeLineView tlView = new TimeLineView(this.view,JavatterPluginLoader.getTweetObjectBuilder());
 		userStreamController.setModel(timeline);
 		timeline.setView(tlView);
 		this.view.addUserStreamTab("TimeLine", tlView);
 
 		UserStreamLogic replyModel = new ReplyModel();
 		final UserStreamController replyController = new UserStreamController();
-		ReplyView rpView = new ReplyView(this.view,builders);
+		ReplyView rpView = new ReplyView(this.view,JavatterPluginLoader.getTweetObjectBuilder());
 		replyController.setModel(replyModel);
 		replyModel.setView(rpView);
 		this.view.addUserStreamTab("リプライ", rpView);
@@ -160,11 +160,6 @@ public class MainWindowController
 	public void addTweetListener(ITweetListener listener){
 		tweetListener.add(listener);
 	}
-
-	public void addTweetObjectBuilder(TweetObjectBuilder builder){
-		builders.add(builder);
-	}
-
 
 	public void loggin() throws MalformedURLException, TwitterException {
 		if (AccountManager.getInstance().isLogined()) {

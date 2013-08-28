@@ -17,6 +17,8 @@ import com.orekyuu.javatter.view.MainWindowView;
 public class JavatterPluginLoader
 {
 	private List<JavatterPlugin> plugins = new ArrayList<JavatterPlugin>();
+	private static List<JavatterProfileBuilder> profileBuilders=new ArrayList<JavatterProfileBuilder>();
+	private static List<TweetObjectBuilder> builders=new ArrayList<TweetObjectBuilder>();
 
 	public void loadPlugins(File file)
 	{
@@ -87,5 +89,23 @@ public class JavatterPluginLoader
 				}
 			}
 		}
+	}
+
+	public static List<TweetObjectBuilder> getTweetObjectBuilder() {
+		return builders;
+	}
+
+	public static List<JavatterProfileBuilder> getProfileBuilder(){
+		return profileBuilders;
+	}
+
+
+	protected static void addTweetObjectBuilder(TweetObjectBuilder builder) {
+		builders.add(builder);
+	}
+
+
+	protected static void addProfileBuilder(JavatterProfileBuilder builder) {
+		profileBuilders.add(builder);
 	}
 }

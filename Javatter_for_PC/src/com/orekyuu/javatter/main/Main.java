@@ -11,16 +11,27 @@ import com.orekyuu.javatter.view.MainWindowView;
 
 public class Main {
 
+	private static MainWindowView view;
+	private static MainWindowController controller;
+
 	public static void main(String[] args) throws MalformedURLException, TwitterException {
 
 		SaveDataManager.getInstance().init();
 		JavatterConfig.getInstance().init();
 
-		MainWindowView view=new MainWindowView();
-		MainWindowController controller=new MainWindowController(view);
+		view=new MainWindowView();
+		controller=new MainWindowController(view);
 		view.setTweetController(controller);
 
 		view.create();
 		controller.start();
+	}
+
+	public static MainWindowView getMainView(){
+		return view;
+	}
+
+	public static MainWindowController getMainController(){
+		return controller;
 	}
 }

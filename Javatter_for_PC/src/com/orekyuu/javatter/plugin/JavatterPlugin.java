@@ -187,9 +187,16 @@ public abstract class JavatterPlugin
 	 * @param builder
 	 */
 	public void addTweetObjectBuider(TweetObjectBuilder builder){
-		this.controller.addTweetObjectBuilder(builder);
+		JavatterPluginLoader.addTweetObjectBuilder(builder);
 	}
 
+	/**
+	 * プロフィールに変更を加えるクラスを登録
+	 * @param builder
+	 */
+	public void addProfileBuilder(JavatterProfileBuilder builder){
+		JavatterPluginLoader.addProfileBuilder(builder);
+	}
 
 	/**
 	 * Javatterを表示しているViewを返す

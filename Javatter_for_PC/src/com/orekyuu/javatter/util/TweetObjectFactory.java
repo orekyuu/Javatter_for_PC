@@ -1,11 +1,14 @@
 package com.orekyuu.javatter.util;
 
 import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.MediaTracker;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
@@ -25,8 +28,11 @@ import javax.swing.event.HyperlinkListener;
 import twitter4j.Status;
 import twitter4j.User;
 
+import com.orekyuu.javatter.controller.ProfileController;
+import com.orekyuu.javatter.model.ProfileModel;
 import com.orekyuu.javatter.model.UserEventListener;
 import com.orekyuu.javatter.plugin.TweetObjectBuilder;
+import com.orekyuu.javatter.view.ProfileView;
 import com.orekyuu.javatter.viewobserver.UserEventViewObserver;
 
 public class TweetObjectFactory
@@ -61,8 +67,6 @@ public class TweetObjectFactory
 
 	private JPanel createImage()
 	{
-		IconCache cache = IconCache.getInstance();
-
 		JPanel panel = new JPanel();
 		panel.setBackground(BackGroundColor.color);
 		panel.setLayout(new BoxLayout(panel, 3));
@@ -70,24 +74,12 @@ public class TweetObjectFactory
 		try {
 			if (this.status.isRetweet()) {
 				Status rt = this.status.getRetweetedStatus();
-				URL rturl = new URL(rt.getUser().getProfileImageURL());
-				ImageIcon icon = cache.getIcon(rturl);
-				panel.add(new JLabel(icon));
-
-				URL url = new URL(this.status.getUser().getProfileImageURL());
-				ImageIcon rtIcon = cache.getIcon(url);
-
-				Image img = rtIcon.getImage().getScaledInstance((int)(icon.getIconWidth() * 0.6D), -1, 4);
-				tracker.addImage(img, 1);
-				tracker.waitForAll();
-				panel.add(new JLabel(new ImageIcon(img)));
+				panel.add(createImageLabel(rt, tracker, 48));
+				panel.add(createImageLabel(status, tracker, 20));
 			} else {
-				URL url = new URL(this.status.getUser().getProfileImageURL());
-				panel.add(new JLabel(cache.getIcon(url)));
+				panel.add(createImageLabel(status, tracker, 48));
 			}
 		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 		panel.setAlignmentX(0.0F);
@@ -97,6 +89,43 @@ public class TweetObjectFactory
 		}
 
 		return panel;
+	}
+
+	private JLabel createImageLabel(final Status status,MediaTracker tracker,int size) throws MalformedURLException{
+		IconCache cache = IconCache.getInstance();
+		ImageIcon icon = cache.getIcon(new URL(status.getUser().getProfileImageURL()));
+		Image img = icon.getImage().getScaledInstance(size, -1, 4);
+
+		JLabel label=new JLabel(new ImageIcon(img));
+		label.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		label.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent e) {}
+
+			@Override
+			public void mousePressed(MouseEvent e) {}
+
+			@Override
+			public void mouseExited(MouseEvent e) {}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ProfileView view=new ProfileView(builders);
+				ProfileModel model=new ProfileModel();
+				ProfileController controller=new ProfileController(status.getUser());
+				view.setController(controller);
+				model.setView(view);
+				controller.setModel(model);
+				controller.setView(view);
+
+				controller.init();
+			}
+		});
+		return label;
 	}
 
 	private JPanel createText(UserEventViewObserver view) {
