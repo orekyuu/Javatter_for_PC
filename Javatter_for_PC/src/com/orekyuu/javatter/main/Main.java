@@ -34,4 +34,8 @@ public class Main {
 	public static MainWindowController getMainController(){
 		return controller;
 	}
+
+	public static int getJavatterVersion(){
+		return 2;
+	}
 }

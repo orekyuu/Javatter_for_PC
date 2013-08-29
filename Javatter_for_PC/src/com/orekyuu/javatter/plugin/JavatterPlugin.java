@@ -8,6 +8,7 @@ import twitter4j.TwitterException;
 import com.orekyuu.javatter.account.TwitterManager;
 import com.orekyuu.javatter.controller.MainWindowController;
 import com.orekyuu.javatter.controller.UserStreamController;
+import com.orekyuu.javatter.main.Main;
 import com.orekyuu.javatter.util.SaveData;
 import com.orekyuu.javatter.util.SaveDataManager;
 import com.orekyuu.javatter.view.IJavatterTab;
@@ -204,5 +205,13 @@ public abstract class JavatterPlugin
 	 */
 	protected MainWindowView getMainView(){
 		return view;
+	}
+
+	/**
+	 * Javatterのバージョンを返します
+	 * @return
+	 */
+	protected int getJavatterVersion(){
+		return Main.getJavatterVersion();
 	}
 }
