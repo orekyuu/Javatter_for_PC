@@ -77,7 +77,7 @@ public class ProfileView implements ProfileViewObserver,AdjustmentListener, User
 
 	@Override
 	public void create() {
-		frame=new JDialog(new JFrame(),"プロフィールテスト");
+		frame=new JDialog(new JFrame(),"プロフィール");
 		frame.setSize(390, 500);
 		tab=new JTabbedPane();
 		frame.getContentPane().add(tab);
