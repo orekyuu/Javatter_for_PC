@@ -69,7 +69,6 @@ public class ProfileView implements ProfileViewObserver,AdjustmentListener, User
 
 	@Override
 	public void userUpdate(User user) {
-		System.out.println("view");
 		this.user=user;
 		userInfoPanel.add(createProfilePanel(user));
 		userInfoPanel.updateUI();

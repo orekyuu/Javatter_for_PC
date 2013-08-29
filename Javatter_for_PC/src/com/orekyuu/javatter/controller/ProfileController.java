@@ -38,7 +38,6 @@ public class ProfileController {
 				Twitter twitter=TwitterManager.getInstance().getTwitter();
 				try {
 					view.create();
-					System.out.println("controller");
 					model.setUser(user);
 					for(Status s:twitter.getUserTimeline(userName,new Paging())){
 						model.addTimeline(s);

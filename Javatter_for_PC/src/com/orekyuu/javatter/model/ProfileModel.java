@@ -25,7 +25,6 @@ public class ProfileModel {
 	}
 
 	public void setUser(User user){
-		System.out.println("model");
 		view.userUpdate(user);
 	}
 
