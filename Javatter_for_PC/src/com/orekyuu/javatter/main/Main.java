@@ -36,6 +36,6 @@ public class Main {
 	}
 
 	public static int getJavatterVersion(){
-		return 2;
+		return 3;
 	}
 }
