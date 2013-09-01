@@ -32,7 +32,8 @@ implements UserStreamViewObserver, IJavatterTab, AdjustmentListener
 	private JScrollPane tp;
 	private List<TweetObjectBuilder> builders;
 
-	private Queue<Status> queue=new LinkedList<Status>();
+	private volatile Queue<Status> queue=new LinkedList<Status>();
+	private boolean queueFlag;
 
 	public ReplyView(UserEventViewObserver observer,List<TweetObjectBuilder> builders)
 	{
@@ -51,7 +52,7 @@ implements UserStreamViewObserver, IJavatterTab, AdjustmentListener
 	public void update(UserStreamLogic model)
 	{
 		if (model instanceof ReplyModel) {
-			if(tp.getVerticalScrollBar().getValue()==0){
+			if(tp.getVerticalScrollBar().getValue()==0&&!queueFlag){
 				addObject(model.getStatus());
 			}else{
 				queue.add(model.getStatus());
@@ -60,7 +61,7 @@ implements UserStreamViewObserver, IJavatterTab, AdjustmentListener
 		}
 	}
 
-	private void setNumber(int num){
+	private synchronized void setNumber(int num){
 		Pattern p=Pattern.compile("^リプライ(\\(\\d+\\))?$");
 		JTabbedPane tab=(JTabbedPane) component.getParent();
 		for(int i=0;i<tab.getTabCount();i++){
@@ -74,7 +75,7 @@ implements UserStreamViewObserver, IJavatterTab, AdjustmentListener
 		}
 	}
 
-	private void addObject(Status status){
+	private synchronized void addObject(Status status){
 		TweetObjectFactory factory = new TweetObjectFactory(status,builders);
 		if (this.panel.getComponentCount() == 1000) this.panel.remove(999);
 		this.panel.add(factory.createTweetObject(this.observer), 0);
@@ -90,11 +91,18 @@ implements UserStreamViewObserver, IJavatterTab, AdjustmentListener
 	@Override
 	public void adjustmentValueChanged(AdjustmentEvent arg0) {
 		if(arg0.getValue()==0){
-			while(!queue.isEmpty()){
-				addObject(queue.poll());
-			}
-			JTabbedPane tab=(JTabbedPane) component.getParent();
-			tab.setTitleAt(1, "リプライ");
+			Thread th=new Thread(){
+				@Override
+				public void run(){
+					queueFlag=true;
+					while(!queue.isEmpty()){
+						addObject(queue.poll());
+					}
+					setNumber(0);
+					queueFlag=false;
+				}
+			};
+			th.start();
 		}
 	}
 }

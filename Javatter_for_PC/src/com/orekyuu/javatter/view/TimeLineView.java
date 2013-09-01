@@ -32,7 +32,8 @@ implements UserStreamViewObserver, IJavatterTab, AdjustmentListener
 	private List<TweetObjectBuilder> builders;
 	private JScrollPane tp;
 
-	private Queue<Status> queue=new LinkedList<Status>();
+	private volatile Queue<Status> queue=new LinkedList<Status>();
+	private boolean queueFlag;
 
 	public TimeLineView(UserEventViewObserver observer,List<TweetObjectBuilder> builders)
 	{
@@ -51,7 +52,7 @@ implements UserStreamViewObserver, IJavatterTab, AdjustmentListener
 	public void update(UserStreamLogic model)
 	{
 		if ((model instanceof TimeLineModel)) {
-			if(tp.getVerticalScrollBar().getValue()==0){
+			if(tp.getVerticalScrollBar().getValue()==0&&!queueFlag){
 				addObject(model.getStatus());
 			}else{
 				queue.add(model.getStatus());
@@ -60,7 +61,7 @@ implements UserStreamViewObserver, IJavatterTab, AdjustmentListener
 		}
 	}
 
-	private void setNumber(int num){
+	private synchronized void setNumber(int num){
 		JTabbedPane tab=(JTabbedPane) component.getParent();
 		Pattern p=Pattern.compile("^TimeLine(\\(\\d+\\))?$");
 		for(int i=0;i<tab.getTabCount();i++){
@@ -74,9 +75,13 @@ implements UserStreamViewObserver, IJavatterTab, AdjustmentListener
 		}
 	}
 
-	private void addObject(Status status){
+	private JPanel createObject(Status status){
 		TweetObjectFactory factory = new TweetObjectFactory(status,builders);
-		JPanel panel = factory.createTweetObject(this.observer);
+		return factory.createTweetObject(this.observer);
+	}
+
+	private synchronized void addObject(Status status){
+		JPanel panel = createObject(status);
 		panel.updateUI();
 		if (this.timeline.getComponentCount() == 1000) this.timeline.remove(999);
 		this.timeline.add(panel, 0);
@@ -86,10 +91,19 @@ implements UserStreamViewObserver, IJavatterTab, AdjustmentListener
 	@Override
 	public void adjustmentValueChanged(AdjustmentEvent arg0) {
 		if(arg0.getValue()==0){
-			while(!queue.isEmpty()){
-				addObject(queue.poll());
-			}
-			setNumber(0);
+
+			Thread th=new Thread(){
+				@Override
+				public void run(){
+					queueFlag=true;
+					while(!queue.isEmpty()){
+						addObject(queue.poll());
+					}
+					setNumber(0);
+					queueFlag=false;
+				}
+			};
+			th.start();
 		}
 	}
 
