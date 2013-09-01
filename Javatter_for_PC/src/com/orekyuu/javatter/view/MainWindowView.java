@@ -32,6 +32,7 @@ import twitter4j.TwitterException;
 
 import com.orekyuu.javatter.account.TwitterManager;
 import com.orekyuu.javatter.controller.MainWindowController;
+import com.orekyuu.javatter.main.Main;
 import com.orekyuu.javatter.util.ImageManager;
 import com.orekyuu.javatter.util.ImageUploader;
 import com.orekyuu.javatter.util.TwitterUtil;
@@ -274,7 +275,7 @@ public class MainWindowView implements TweetViewObserver, ActionListener, UserEv
 	 */
 	public void setTitle(String screenName)
 	{
-		this.window.setTitle("Javatter(" + screenName + ")");
+		this.window.setTitle("Javatter(" + screenName + ") #"+Main.getJavatterVersion());
 	}
 
 	/**
