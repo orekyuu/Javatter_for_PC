@@ -74,11 +74,17 @@ implements UserStreamViewObserver, IJavatterTab, AdjustmentListener
 			}
 		}
 	}
+	
+	private JPanel createObject(Status status){
+		TweetObjectFactory factory = new TweetObjectFactory(status,builders);
+		return factory.createTweetObject(this.observer);
+	}
 
 	private synchronized void addObject(Status status){
-		TweetObjectFactory factory = new TweetObjectFactory(status,builders);
+		JPanel jpanel = createObject(status);
+		jpanel.updateUI();
 		if (this.panel.getComponentCount() == 1000) this.panel.remove(999);
-		this.panel.add(factory.createTweetObject(this.observer), 0);
+		this.panel.add(jpanel, 0);
 		this.panel.updateUI();
 	}
 
