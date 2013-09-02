@@ -35,6 +35,7 @@ implements UserStreamViewObserver, IJavatterTab, AdjustmentListener
 	private volatile Queue<Status> queue=new LinkedList<Status>();
 	private boolean queueFlag;
 	private boolean queueEvent;
+	private JPanel last;
 
 	public ReplyView(UserEventViewObserver observer,List<TweetObjectBuilder> builders)
 	{
@@ -87,6 +88,7 @@ implements UserStreamViewObserver, IJavatterTab, AdjustmentListener
 		if (this.panel.getComponentCount() == 1000) this.panel.remove(999);
 		this.panel.add(jpanel, 0);
 		this.panel.updateUI();
+		last = jpanel;
 	}
 
 	@Override
@@ -106,11 +108,16 @@ implements UserStreamViewObserver, IJavatterTab, AdjustmentListener
 				@Override
 				public void run(){
 					queueFlag=true;
+					JPanel lastPanel = last;
 					while(!queue.isEmpty()){
 						addObject(queue.poll());
 					}
 					setNumber(0);
 					queueFlag=false;
+					if(lastPanel != null){
+						tp.validate();
+						tp.getVerticalScrollBar().setValue(lastPanel.getLocation().y);
+					}
 				}
 			};
 			th.start();
