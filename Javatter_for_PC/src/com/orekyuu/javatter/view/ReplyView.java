@@ -34,6 +34,7 @@ implements UserStreamViewObserver, IJavatterTab, AdjustmentListener
 
 	private volatile Queue<Status> queue=new LinkedList<Status>();
 	private boolean queueFlag;
+	private boolean queueEvent;
 
 	public ReplyView(UserEventViewObserver observer,List<TweetObjectBuilder> builders)
 	{
@@ -97,6 +98,10 @@ implements UserStreamViewObserver, IJavatterTab, AdjustmentListener
 	@Override
 	public void adjustmentValueChanged(AdjustmentEvent arg0) {
 		if(arg0.getValue()==0){
+			if(queueEvent){
+				return;
+			}
+			queueEvent = true;
 			Thread th=new Thread(){
 				@Override
 				public void run(){
@@ -109,6 +114,9 @@ implements UserStreamViewObserver, IJavatterTab, AdjustmentListener
 				}
 			};
 			th.start();
+		}
+		else{
+			queueEvent = false;
 		}
 	}
 }
