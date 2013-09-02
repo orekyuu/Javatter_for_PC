@@ -269,7 +269,7 @@ public class ProfileView implements ProfileViewObserver,AdjustmentListener, User
 			panel.add(follow,BorderLayout.PAGE_END);
 
 			for(JavatterProfileBuilder b:JavatterPluginLoader.getProfileBuilder()){
-				b.createdProfilePanel(panel);
+				b.createdProfilePanel(panel,user);
 			}
 			return panel;
 		}catch(Exception e){
@@ -337,7 +337,7 @@ public class ProfileView implements ProfileViewObserver,AdjustmentListener, User
 			panel.add(area);
 
 			for(JavatterProfileBuilder b:JavatterPluginLoader.getProfileBuilder()){
-				b.createdFollowObjectPanel(panel);
+				b.createdFollowObjectPanel(panel,user);
 			}
 			return panel;
 
