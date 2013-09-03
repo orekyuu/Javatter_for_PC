@@ -122,6 +122,20 @@ public abstract class JavatterPlugin
 	}
 
 	/**
+	 * クラスがロードされた直後に呼ばれます
+	 */
+	public void preInit(){
+
+	}
+
+	/**
+	 * すべてのプラグインのinitが呼ばれた後に呼ばれます
+	 */
+	public void postInit(){
+
+	}
+
+	/**
 	 * Javatterが開始するときに動きます
 	 */
 	public abstract void init();

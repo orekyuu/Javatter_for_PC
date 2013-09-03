@@ -55,6 +55,10 @@ public class JavatterPluginLoader
 			pluginTab.addPluginName(plugin.getPluginName(),plugin.getVersion());
 			pluginTab.addPluginConfig(plugin.getPluginName(), plugin.getPluginConfigView());
 		}
+
+		for(JavatterPlugin plugin : this.plugins){
+			plugin.postInit();
+		}
 	}
 
 	private void load(File file,ClassLoader loader)throws Exception
@@ -70,7 +74,9 @@ public class JavatterPluginLoader
 		Class<?> plugin=loader.loadClass(mainClass);
 		Object obj=plugin.newInstance();
 		if(obj instanceof JavatterPlugin){
-			plugins.add((JavatterPlugin) obj);
+			JavatterPlugin p=(JavatterPlugin) obj;
+			plugins.add(p);
+			p.preInit();
 		}
 	}
 
