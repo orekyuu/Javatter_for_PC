@@ -1,7 +1,9 @@
 package com.orekyuu.javatter.plugin;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
@@ -63,9 +65,7 @@ public class JavatterPluginLoader
 
 	private void load(File file,ClassLoader loader)throws Exception
 	{
-		Method m=URLClassLoader.class.getDeclaredMethod("addURL", new Class[]{URL.class});
-		m.setAccessible(true);
-		m.invoke(loader, new Object[]{file.toURI().toURL()});
+		addLibrary(file, loader);
 
 		JarFile jar=new JarFile(file);
 		Manifest manifest=jar.getManifest();
@@ -95,6 +95,24 @@ public class JavatterPluginLoader
 				}
 			}
 		}
+	}
+
+	/**
+	 * 指定されたファイルをクラスローダーの検索パスに追加します
+	 * @param file 追加したいファイル
+	 * @param loader 使用するクラスローダー
+	 * @throws NoSuchMethodException
+	 * @throws SecurityException
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 * @throws InvocationTargetException
+	 * @throws MalformedURLException
+	 */
+	public static void addLibrary(File file,ClassLoader loader) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, MalformedURLException{
+		Method m=URLClassLoader.class.getDeclaredMethod("addURL", new Class[]{URL.class});
+		m.setAccessible(true);
+		m.invoke(loader, new Object[]{file.toURI().toURL()});
+
 	}
 
 	public static List<TweetObjectBuilder> getTweetObjectBuilder() {
