@@ -25,7 +25,7 @@ public class IconCache {
 		}
 
 		ImageIcon icon=new ImageIcon(url);
-		cacheMap.put(url, icon);
+		cacheMap.put(url, new ImageIcon(icon.getImage().getScaledInstance(48, -1, 4)));
 		return icon;
 	}
 }

@@ -94,7 +94,7 @@ public class TweetObjectFactory
 	private JLabel createImageLabel(final Status status,MediaTracker tracker,int size) throws MalformedURLException{
 		IconCache cache = IconCache.getInstance();
 		ImageIcon icon = cache.getIcon(new URL(status.getUser().getProfileImageURL()));
-		Image img = icon.getImage().getScaledInstance(size, -1, 4);
+		Image img = size==48?icon.getImage():icon.getImage().getScaledInstance(size, -1, 4);
 
 		JLabel label=new JLabel(new ImageIcon(img));
 		label.setCursor(new Cursor(Cursor.HAND_CURSOR));
