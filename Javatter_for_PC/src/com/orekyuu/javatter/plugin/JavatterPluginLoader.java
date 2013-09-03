@@ -112,7 +112,6 @@ public class JavatterPluginLoader
 		Method m=URLClassLoader.class.getDeclaredMethod("addURL", new Class[]{URL.class});
 		m.setAccessible(true);
 		m.invoke(loader, new Object[]{file.toURI().toURL()});
-
 	}
 
 	public static List<TweetObjectBuilder> getTweetObjectBuilder() {
@@ -131,5 +130,15 @@ public class JavatterPluginLoader
 
 	protected static void addProfileBuilder(JavatterProfileBuilder builder) {
 		profileBuilders.add(builder);
+	}
+
+
+	public boolean isPluginLoaded(String name) {
+		for(JavatterPlugin plugin:plugins){
+			if(plugin.getPluginName().equals(name)){
+				return true;
+			}
+		}
+		return false;
 	}
 }

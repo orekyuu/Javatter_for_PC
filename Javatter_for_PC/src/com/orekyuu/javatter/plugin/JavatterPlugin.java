@@ -36,6 +36,11 @@ public abstract class JavatterPlugin
 	protected String userName;
 
 	/**
+	 * プラグインローダー
+	 */
+	private JavatterPluginLoader loader;
+
+	/**
 	 * セーブデータの補助クラス
 	 */
 	private SaveData savedata;
@@ -110,6 +115,23 @@ public abstract class JavatterPlugin
 	 */
 	public final void initPlugin() {
 		init();
+	}
+
+	/**
+	 * プラグインローダーを設定
+	 * @param loader
+	 */
+	protected final void setPluginLoader(JavatterPluginLoader loader){
+		this.loader=loader;
+	}
+
+	/**
+	 * 指定したプラグインがロードされているか
+	 * @param name プラグインの名前
+	 * @return
+	 */
+	protected boolean isPluginLoaded(String name){
+		return loader.isPluginLoaded(name);
 	}
 
 	/**
