@@ -98,7 +98,7 @@ public class MainWindowController
 		ReplyView rpView = new ReplyView(this.view,JavatterPluginLoader.getTweetObjectBuilder());
 		replyController.setModel(replyModel);
 		replyModel.setView(rpView);
-		this.view.addUserStreamTab("リプライ", rpView);
+		this.view.addUserStreamTab("Reply", rpView);
 
 		ConfigModel configModel = new ConfigModel();
 		ConfigController cofigController = new ConfigController();
