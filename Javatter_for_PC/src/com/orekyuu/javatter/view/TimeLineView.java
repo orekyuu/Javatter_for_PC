@@ -34,6 +34,8 @@ implements UserStreamViewObserver, IJavatterTab, AdjustmentListener
 
 	private volatile Queue<Status> queue=new LinkedList<Status>();
 	private boolean queueFlag;
+	private boolean queueEvent;
+	private JPanel last;
 
 	public TimeLineView(UserEventViewObserver observer,List<TweetObjectBuilder> builders)
 	{
@@ -86,24 +88,36 @@ implements UserStreamViewObserver, IJavatterTab, AdjustmentListener
 		if (this.timeline.getComponentCount() == 1000) this.timeline.remove(999);
 		this.timeline.add(panel, 0);
 		this.timeline.updateUI();
+		last = panel;
 	}
 
 	@Override
 	public void adjustmentValueChanged(AdjustmentEvent arg0) {
 		if(arg0.getValue()==0){
-
+			if(queueEvent){
+				return;
+			}
+			queueEvent = true;
 			Thread th=new Thread(){
 				@Override
 				public void run(){
 					queueFlag=true;
+					JPanel lastPanel = last;
 					while(!queue.isEmpty()){
 						addObject(queue.poll());
 					}
 					setNumber(0);
 					queueFlag=false;
+					if(lastPanel != null){
+						tp.validate();
+						tp.getVerticalScrollBar().setValue(lastPanel.getLocation().y);
+					}
 				}
 			};
 			th.start();
+		}
+		else{
+			queueEvent = false;
 		}
 	}
 
