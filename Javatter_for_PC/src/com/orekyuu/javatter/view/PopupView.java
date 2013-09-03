@@ -44,7 +44,7 @@ public class PopupView implements PopupViewObserver {
 
 	@Override
 	public void onUnFav(User user, Status status) {
-		icon.displayMessage(user.getName()+"にアンファボされました", status.getText(), MessageType.NONE);
+		icon.displayMessage(user.getName()+"にあんふぁぼされました", status.getText(), MessageType.NONE);
 	}
 
 }
