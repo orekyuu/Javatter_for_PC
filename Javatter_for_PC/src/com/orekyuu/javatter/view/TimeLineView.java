@@ -75,9 +75,8 @@ implements UserStreamViewObserver, IJavatterTab, AdjustmentListener
 
 	private synchronized void setNumber(int num){
 		JTabbedPane tab=(JTabbedPane) component.getParent();
-		Pattern p=Pattern.compile("^TimeLine(\\(\\d+\\))?$");
 		for(int i=0;i<tab.getTabCount();i++){
-			if(p.matcher(tab.getTitleAt(i)).matches()){
+			if(tab.getComponentAt(i) == this.component){
 				if(num!=0){
 					tab.setTitleAt(i, "TimeLine("+num+")");
 				}else{

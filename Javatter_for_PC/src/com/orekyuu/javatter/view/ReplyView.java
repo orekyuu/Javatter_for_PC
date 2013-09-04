@@ -74,10 +74,9 @@ implements UserStreamViewObserver, IJavatterTab, AdjustmentListener
 	}
 
 	private synchronized void setNumber(int num){
-		Pattern p=Pattern.compile("^Reply(\\(\\d+\\))?$");
 		JTabbedPane tab=(JTabbedPane) component.getParent();
 		for(int i=0;i<tab.getTabCount();i++){
-			if(p.matcher(tab.getTitleAt(i)).matches()){
+			if(tab.getComponentAt(i) == this.component){
 				if(num!=0){
 					tab.setTitleAt(i, "Reply("+num+")");
 				}else{
