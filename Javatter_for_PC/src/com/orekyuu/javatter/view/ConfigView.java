@@ -57,7 +57,7 @@ public class ConfigView implements IJavatterTab,ConfigViewObserver,ActionListene
 			p.setLayout(new BoxLayout(p, BoxLayout.LINE_AXIS));
 			p.setBackground(BackGroundColor.color);
 
-			JLabel label=new JLabel("ありがとうございます");
+			JLabel label=new JLabel("ふぁぼありがとうございます");
 			label.setAlignmentX(0);
 			p.add(label,BorderLayout.LINE_START);
 

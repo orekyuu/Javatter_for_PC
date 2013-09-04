@@ -28,7 +28,7 @@ public class JavatterPluginConfigTab implements IJavatterTab, ActionListener {
 		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 
 		JPanel isLoad=new JPanel();
-		isLoad.add(new JLabel("Pluginを読み込む(次回起動に適応)"));
+		isLoad.add(new JLabel("Pluginを読み込む(次回起動に適用)"));
 		check=new JCheckBox();
 		check.setSelected(save.getBoolean("isLoad"));
 		check.addActionListener(this);

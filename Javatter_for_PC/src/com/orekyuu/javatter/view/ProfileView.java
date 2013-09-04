@@ -192,7 +192,6 @@ public class ProfileView implements ProfileViewObserver,AdjustmentListener, User
 			JPanel pageStart=new JPanel();
 			pageStart.setBackground(BackGroundColor.color);
 			pageStart.setLayout(new BoxLayout(pageStart, BoxLayout.LINE_AXIS));
-			System.out.println(user.getProfileImageURL().replaceAll(".png", "_large.png"));
 			Image img=IconCache.getInstance().getIcon(new URL(user.getProfileImageURL().replaceAll("_normal", ""))).getImage().getScaledInstance(64, -1, 3);
 			JLabel icon=new JLabel(new ImageIcon(img));
 			pageStart.add(icon);

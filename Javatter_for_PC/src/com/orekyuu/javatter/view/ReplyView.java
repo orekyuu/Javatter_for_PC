@@ -74,14 +74,14 @@ implements UserStreamViewObserver, IJavatterTab, AdjustmentListener
 	}
 
 	private synchronized void setNumber(int num){
-		Pattern p=Pattern.compile("^リプライ(\\(\\d+\\))?$");
+		Pattern p=Pattern.compile("^Reply(\\(\\d+\\))?$");
 		JTabbedPane tab=(JTabbedPane) component.getParent();
 		for(int i=0;i<tab.getTabCount();i++){
 			if(p.matcher(tab.getTitleAt(i)).matches()){
 				if(num!=0){
-					tab.setTitleAt(i, "リプライ("+num+")");
+					tab.setTitleAt(i, "Reply("+num+")");
 				}else{
-					tab.setTitleAt(i, "リプライ");
+					tab.setTitleAt(i, "Reply");
 				}
 			}
 		}
