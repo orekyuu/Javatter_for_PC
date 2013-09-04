@@ -16,6 +16,11 @@ import com.orekyuu.javatter.util.BackGroundColor;
 import com.orekyuu.javatter.util.JavatterConfig;
 import com.orekyuu.javatter.viewobserver.ConfigViewObserver;
 
+/**
+ * コンフィグの描画クラス
+ * @author orekyuu
+ *
+ */
 public class ConfigView implements IJavatterTab,ConfigViewObserver,ActionListener{
 
 	private ConfigController controller;

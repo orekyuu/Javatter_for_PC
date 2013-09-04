@@ -40,6 +40,11 @@ import com.orekyuu.javatter.viewobserver.ImagePreviewViewObserber;
 import com.orekyuu.javatter.viewobserver.TweetViewObserver;
 import com.orekyuu.javatter.viewobserver.UserEventViewObserver;
 
+/**
+ * メインウィンドウ描画クラス
+ * @author orekyuu
+ *
+ */
 public class MainWindowView implements TweetViewObserver, ActionListener, UserEventViewObserver, ImagePreviewViewObserber
 {
 	private JFrame window;

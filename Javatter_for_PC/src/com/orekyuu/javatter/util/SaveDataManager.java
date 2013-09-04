@@ -4,6 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+/**
+ * セーブデータ管理クラス
+ * @author orekyuu
+ *
+ */
 public class SaveDataManager{
 	private static SaveDataManager instance=new SaveDataManager();
 	private Map<String,SaveData> data=new HashMap<String, SaveData>();
@@ -11,6 +16,9 @@ public class SaveDataManager{
 	private SaveDataManager(){
 	}
 
+	/**
+	 * セーブデータを初期化
+	 */
 	public void init(){
 		try {
 			loadAll();

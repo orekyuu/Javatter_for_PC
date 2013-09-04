@@ -23,6 +23,11 @@ import com.orekyuu.javatter.util.TweetObjectFactory;
 import com.orekyuu.javatter.viewobserver.UserEventViewObserver;
 import com.orekyuu.javatter.viewobserver.UserStreamViewObserver;
 
+/**
+ * タイムラインタブ描画クラス
+ * @author orekyuu
+ *
+ */
 public class TimeLineView
 implements UserStreamViewObserver, IJavatterTab, AdjustmentListener
 {
@@ -37,6 +42,10 @@ implements UserStreamViewObserver, IJavatterTab, AdjustmentListener
 	private boolean queueEvent;
 	private JPanel last;
 
+	/**
+	 * @param observer ユーザーイベントリスナ
+	 * @param builders TweetObjectBuilderのリスト
+	 */
 	public TimeLineView(UserEventViewObserver observer,List<TweetObjectBuilder> builders)
 	{
 		this.timeline = new JPanel();
@@ -51,6 +60,7 @@ implements UserStreamViewObserver, IJavatterTab, AdjustmentListener
 		this.builders=builders;
 	}
 
+	@Override
 	public void update(UserStreamLogic model)
 	{
 		if ((model instanceof TimeLineModel)) {

@@ -10,6 +10,11 @@ import com.orekyuu.javatter.account.TwitterManager;
 import com.orekyuu.javatter.logic.TwitterLoginLogic;
 import com.orekyuu.javatter.viewobserver.LoginViewObserver;
 
+/**
+ * ログインのモデル
+ * @author orekyuu
+ *
+ */
 public class LoginModel implements TwitterLoginLogic {
 
 	private LoginViewObserver view;

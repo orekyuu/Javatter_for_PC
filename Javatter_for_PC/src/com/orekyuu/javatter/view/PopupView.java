@@ -10,6 +10,11 @@ import twitter4j.User;
 import com.orekyuu.javatter.util.ImageManager;
 import com.orekyuu.javatter.viewobserver.PopupViewObserver;
 
+/**
+ * ポップアップの描画クラス
+ * @author orekyuu
+ *
+ */
 public class PopupView implements PopupViewObserver {
 
 	private TrayIcon icon;

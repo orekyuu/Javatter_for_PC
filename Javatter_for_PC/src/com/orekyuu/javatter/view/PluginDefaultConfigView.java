@@ -4,6 +4,11 @@ import java.awt.Component;
 
 import javax.swing.JPanel;
 
+/**
+ * プラグインコンフィグのデフォルト
+ * @author orekyuu
+ *
+ */
 public class PluginDefaultConfigView implements IJavatterTab {
 
 	@Override

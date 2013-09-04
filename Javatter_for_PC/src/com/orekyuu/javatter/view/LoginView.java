@@ -20,6 +20,11 @@ import com.orekyuu.javatter.controller.LoginController;
 import com.orekyuu.javatter.logic.TwitterLoginLogic;
 import com.orekyuu.javatter.viewobserver.LoginViewObserver;
 
+/**
+ * ログイン画面描画クラス
+ * @author orekyuu
+ *
+ */
 public class LoginView implements LoginViewObserver,ActionListener{
 
 	private LoginController controller;

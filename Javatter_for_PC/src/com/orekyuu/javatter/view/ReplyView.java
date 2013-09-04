@@ -23,6 +23,11 @@ import com.orekyuu.javatter.util.TweetObjectFactory;
 import com.orekyuu.javatter.viewobserver.UserEventViewObserver;
 import com.orekyuu.javatter.viewobserver.UserStreamViewObserver;
 
+/**
+ * リプライタブ描画クラス
+ * @author orekyuu
+ *
+ */
 public class ReplyView
 implements UserStreamViewObserver, IJavatterTab, AdjustmentListener
 {
@@ -37,6 +42,10 @@ implements UserStreamViewObserver, IJavatterTab, AdjustmentListener
 	private boolean queueEvent;
 	private JPanel last;
 
+	/**
+	 * @param observer ユーザーイベントリスナ
+	 * @param builders TweetObjectBuilderのリスト
+	 */
 	public ReplyView(UserEventViewObserver observer,List<TweetObjectBuilder> builders)
 	{
 		this.panel = new JPanel();
@@ -51,6 +60,7 @@ implements UserStreamViewObserver, IJavatterTab, AdjustmentListener
 		this.builders=builders;
 	}
 
+	@Override
 	public void update(UserStreamLogic model)
 	{
 		if (model instanceof ReplyModel) {
@@ -76,7 +86,7 @@ implements UserStreamViewObserver, IJavatterTab, AdjustmentListener
 			}
 		}
 	}
-	
+
 	private JPanel createObject(Status status){
 		TweetObjectFactory factory = new TweetObjectFactory(status,builders);
 		return factory.createTweetObject(this.observer);

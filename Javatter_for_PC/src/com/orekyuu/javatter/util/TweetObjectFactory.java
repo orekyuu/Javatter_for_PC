@@ -35,17 +35,31 @@ import com.orekyuu.javatter.plugin.TweetObjectBuilder;
 import com.orekyuu.javatter.view.ProfileView;
 import com.orekyuu.javatter.viewobserver.UserEventViewObserver;
 
+/**
+ * TweetObjectのファクトリ
+ * @author orekyuu
+ *
+ */
 public class TweetObjectFactory
 {
 	private Status status;
 	private List<TweetObjectBuilder> builders;
 
+	/**
+	 * @param status 対象のStatus
+	 * @param builders TweetObjectBuilderのリスト
+	 */
 	public TweetObjectFactory(Status status,List<TweetObjectBuilder> builders)
 	{
 		this.status = status;
 		this.builders=builders;
 	}
 
+	/**
+	 * オブジェクトを作成
+	 * @param view
+	 * @return
+	 */
 	public JPanel createTweetObject(UserEventViewObserver view) {
 		JPanel base = new JPanel();
 		base.setBackground(BackGroundColor.color);

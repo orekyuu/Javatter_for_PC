@@ -9,15 +9,29 @@ import com.orekyuu.javatter.util.JavatterConfig;
 import com.orekyuu.javatter.util.TwitterUtil;
 import com.orekyuu.javatter.viewobserver.PopupViewObserver;
 
+/**
+ * ポップアップのモデル
+ * @author orekyuu
+ *
+ */
 public class PopupModel {
 
 	private PopupViewObserver view;
 	private TwitterUtil util=new TwitterUtil();
 
+	/**
+	 * Viewを設定
+	 * @param view
+	 */
 	public void setView(PopupViewObserver view){
 		this.view=view;
 	}
 
+	/**
+	 * お気に入りイベント
+	 * @param user
+	 * @param status
+	 */
 	public void onFav(User user,Status status){
 		view.onFav(user,status);
 		if(JavatterConfig.getInstance().getThanks()){
@@ -29,18 +43,36 @@ public class PopupModel {
 		}
 	}
 
+	/**
+	 * リツイートイベント
+	 * @param rtUser RTしたユーザ
+	 * @param rt RTされたStatus
+	 */
 	public void onRT(User rtUser,Status rt){
 		view.onRT(rtUser, rt);
 	}
 
+	/**
+	 * あんふぁぼイベント
+	 * @param user イベントを起こしたユーザー
+	 * @param status あんふぁぼされたつぶやき
+	 */
 	public void onUnFav(User user,Status status){
 		view.onUnFav(user,status);
 	}
 
+	/**
+	 * フォローイベント
+	 * @param user
+	 */
 	public void onFollow(User user){
 		view.onFollow(user);
 	}
 
+	/**
+	 * ブロックイベント
+	 * @param user
+	 */
 	public void onBlock(User user){
 		view.onBlock(user);
 	}

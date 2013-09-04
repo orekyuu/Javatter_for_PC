@@ -5,11 +5,16 @@ import java.net.URL;
 import com.orekyuu.javatter.controller.LoginController;
 import com.orekyuu.javatter.logic.TwitterLoginLogic;
 
+/**
+ * ログイン描画クラスを表すインターフェース
+ * @author orekyuu
+ *
+ */
 public interface LoginViewObserver {
 
 	/**
 	 * 指定のURLを開く
-	 * @param url
+	 * @param url ブラウザで開くURL
 	 */
 	public void openView(URL url);
 

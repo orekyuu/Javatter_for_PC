@@ -7,6 +7,11 @@ import twitter4j.auth.RequestToken;
 
 import com.orekyuu.javatter.viewobserver.LoginViewObserver;
 
+/**
+ * ログインするための動作を表すインターフェース
+ * @author orekyuu
+ *
+ */
 public interface TwitterLoginLogic {
 
 	/**

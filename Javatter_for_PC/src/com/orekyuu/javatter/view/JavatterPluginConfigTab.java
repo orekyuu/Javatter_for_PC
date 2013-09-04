@@ -12,6 +12,11 @@ import javax.swing.JPanel;
 import com.orekyuu.javatter.util.SaveData;
 import com.orekyuu.javatter.util.SaveDataManager;
 
+/**
+ * Javatterプラグインのコンフィグ画面
+ * @author orekyuu
+ *
+ */
 public class JavatterPluginConfigTab implements IJavatterTab, ActionListener {
 
 	private JCheckBox check;

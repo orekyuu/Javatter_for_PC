@@ -5,6 +5,11 @@ import twitter4j.Status;
 import com.orekyuu.javatter.logic.UserStreamLogic;
 import com.orekyuu.javatter.viewobserver.UserStreamViewObserver;
 
+/**
+ * リプライのモデル
+ * @author orekyuu
+ *
+ */
 public class ReplyModel implements UserStreamLogic{
 	private UserStreamViewObserver view;
 	private Status status;

@@ -27,14 +27,26 @@ public class Main {
 		controller.start();
 	}
 
+	/**
+	 * メインウィンドウのViewを返す
+	 * @return
+	 */
 	public static MainWindowView getMainView(){
 		return view;
 	}
 
+	/**
+	 * メインウィンドウのControllerを返す
+	 * @return
+	 */
 	public static MainWindowController getMainController(){
 		return controller;
 	}
 
+	/**
+	 * Javatterのバージョンを返す
+	 * @return
+	 */
 	public static int getJavatterVersion(){
 		return 3;
 	}

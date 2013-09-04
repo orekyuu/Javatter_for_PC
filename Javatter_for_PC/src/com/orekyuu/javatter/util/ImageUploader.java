@@ -13,11 +13,20 @@ import java.util.List;
 import com.orekyuu.javatter.view.MainWindowView;
 import com.orekyuu.javatter.viewobserver.ImagePreviewViewObserber;
 
+/**
+ * 画像をアップロードするクラス
+ * @author orekyuu
+ *
+ */
 public class ImageUploader implements DropTargetListener{
 
 	private TwitterUtil twitter;
 	private ImagePreviewViewObserber preview;
 
+	/**
+	 * @param util TwitterUtil
+	 * @param mainWindowView メインウィンドウ
+	 */
 	public ImageUploader(TwitterUtil util, MainWindowView mainWindowView){
 		twitter=util;
 		preview=mainWindowView;

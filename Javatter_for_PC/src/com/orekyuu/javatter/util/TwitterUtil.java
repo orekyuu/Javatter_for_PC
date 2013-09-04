@@ -7,6 +7,11 @@ import twitter4j.StatusUpdate;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 
+/**
+ * Twitterでのアクションを補助するクラス
+ * @author orekyuu
+ *
+ */
 public class TwitterUtil {
 
 	private long replyID;

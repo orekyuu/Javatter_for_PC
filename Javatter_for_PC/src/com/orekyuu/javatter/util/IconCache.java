@@ -6,6 +6,11 @@ import java.util.Map;
 
 import javax.swing.ImageIcon;
 
+/**
+ * アイコンのキャッシュ
+ * @author orekyuu
+ *
+ */
 public class IconCache {
 
 	private static IconCache icon=new IconCache();
@@ -15,10 +20,19 @@ public class IconCache {
 
 	}
 
+	/**
+	 * インスタンスを返す
+	 * @return
+	 */
 	public static IconCache getInstance(){
 		return icon;
 	}
 
+	/**
+	 * アイコンを取得する
+	 * @param url アイコンのURL
+	 * @return
+	 */
 	public ImageIcon getIcon(URL url){
 		if(cacheMap.containsKey(url)){
 			return cacheMap.get(url);

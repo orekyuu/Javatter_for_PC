@@ -22,7 +22,6 @@ import com.orekyuu.javatter.model.ReplyModel;
 import com.orekyuu.javatter.model.TimeLineModel;
 import com.orekyuu.javatter.plugin.ITweetListener;
 import com.orekyuu.javatter.plugin.JavatterPluginLoader;
-import com.orekyuu.javatter.plugin.TweetObjectBuilder;
 import com.orekyuu.javatter.util.JavatterUserStream;
 import com.orekyuu.javatter.util.TwitterUtil;
 import com.orekyuu.javatter.view.ConfigView;
@@ -34,6 +33,11 @@ import com.orekyuu.javatter.view.ReplyView;
 import com.orekyuu.javatter.view.TimeLineView;
 import com.orekyuu.javatter.viewobserver.PopupViewObserver;
 
+/**
+ * メインウィンドウのControllerクラス
+ * @author orekyuu
+ *
+ */
 public class MainWindowController
 {
 	private Twitter twitter;
@@ -41,12 +45,22 @@ public class MainWindowController
 	private JavatterUserStream userStream;
 	private List<ITweetListener> tweetListener=new ArrayList<ITweetListener>();
 
+	/**
+	 *
+	 * @param view Viewを設定
+	 */
 	public MainWindowController(MainWindowView view)
 	{
 		this.twitter = TwitterManager.getInstance().getTwitter();
 		this.view = view;
 	}
 
+	/**
+	 * ツイートする
+	 * @param tweet つぶやきたいメッセージ
+	 * @param util TwitterUtil
+	 * @throws TwitterException
+	 */
 	public void onTweet(String tweet, TwitterUtil util) throws TwitterException {
 		String t=tweet;
 		for(ITweetListener listener:tweetListener){
@@ -55,23 +69,48 @@ public class MainWindowController
 		util.tweet(this.twitter, t);
 	}
 
+	/**
+	 * リツイートする
+	 * @param status リツイートする対象
+	 * @param util TwitterUtil
+	 * @throws TwitterException
+	 */
 	public void onRetweet(Status status, TwitterUtil util) throws TwitterException {
 		util.rt(this.twitter, status);
 	}
 
+	/**
+	 * リプライ先を設定
+	 * @param status リプライ先
+	 * @param util TwitterUtil
+	 */
 	public void onReply(Status status, TwitterUtil util) {
 		util.setReplyID(status);
 	}
 
+	/**
+	 * お気に入りに登録
+	 * @param status
+	 * @param util
+	 * @throws TwitterException
+	 */
 	public void onFav(Status status, TwitterUtil util) throws TwitterException {
 		util.fav(this.twitter, status);
 	}
 
+	/**
+	 * Javaビームを放つ
+	 * @param text 連結させる文字列
+	 * @throws TwitterException
+	 */
 	public void shotJavaBeam(String text) throws TwitterException {
 		TwitterUtil util = new TwitterUtil();
 		onTweet(text + "Javaビームﾋﾞﾋﾞﾋﾞﾋﾞﾋﾞﾋﾞﾋﾞwwwwwwwwww", util);
 	}
 
+	/**
+	 * 起動に必要な動作
+	 */
 	public void start()
 	{
 		try {

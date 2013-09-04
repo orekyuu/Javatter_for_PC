@@ -1,5 +1,10 @@
 package com.orekyuu.javatter.plugin;
 
+/**
+ * ユーザーがつぶやいた時のイベントリスナ
+ * @author orekyuu
+ *
+ */
 public interface ITweetListener {
 
 	/**

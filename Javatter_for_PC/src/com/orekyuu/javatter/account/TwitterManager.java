@@ -3,6 +3,11 @@ package com.orekyuu.javatter.account;
 import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
 
+/**
+ * Twitter管理クラス
+ * @author orekyuu
+ *
+ */
 public class TwitterManager {
 
 	private static TwitterManager manager=new TwitterManager();
@@ -16,18 +21,34 @@ public class TwitterManager {
 		twitter.setOAuthConsumer(consumerKey, consumerSecret);
 	}
 
+	/**
+	 * インスタンスを取得します
+	 * @return
+	 */
 	public static TwitterManager getInstance(){
 		return manager;
 	}
 
+	/**
+	 * Twitterインスタンスを取得します
+	 * @return
+	 */
 	public Twitter getTwitter(){
 		return twitter;
 	}
 
+	/**
+	 * コンシューマキーを返します
+	 * @return
+	 */
 	public String getConsumerKey(){
 		return consumerKey;
 	}
 
+	/**
+	 * コンシューマシークレットを返します
+	 * @return
+	 */
 	public String getConsumerSecret(){
 		return consumerSecret;
 	}

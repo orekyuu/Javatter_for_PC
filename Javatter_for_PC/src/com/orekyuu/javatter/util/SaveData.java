@@ -9,6 +9,11 @@ import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * セーブデータを表すクラス
+ * @author orekyuu
+ *
+ */
 public class SaveData{
 
 	private Map<String,Integer> intMap;

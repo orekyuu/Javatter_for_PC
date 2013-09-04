@@ -15,6 +15,11 @@ import com.orekyuu.javatter.view.IJavatterTab;
 import com.orekyuu.javatter.view.MainWindowView;
 import com.orekyuu.javatter.view.PluginDefaultConfigView;
 
+/**
+ * Javatterのプラグインを表す抽象クラス
+ * @author orekyuu
+ *
+ */
 public abstract class JavatterPlugin
 {
 	/**

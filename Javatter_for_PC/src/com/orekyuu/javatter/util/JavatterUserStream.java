@@ -17,14 +17,26 @@ import com.orekyuu.javatter.account.AccountManager;
 import com.orekyuu.javatter.account.TwitterManager;
 import com.orekyuu.javatter.controller.UserStreamController;
 
+/**
+ * Javatterのユーザーストリーム
+ * @author orekyuu
+ *
+ */
 public class JavatterUserStream implements UserStreamListener{
 
 	private List<UserStreamController> controllers=new LinkedList<UserStreamController>();
 
+	/**
+	 * ユーザーストリームを追加
+	 * @param controller
+	 */
 	public void addUserStreamController(UserStreamController controller){
 		controllers.add(controller);
 	}
 
+	/**
+	 * ユーザーストリームを開始する
+	 */
 	public void start(){
 		TwitterManager m=TwitterManager.getInstance();
 		TwitterStream twitterStream = new TwitterStreamFactory().getInstance();

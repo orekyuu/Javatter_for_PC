@@ -4,6 +4,11 @@ import javax.swing.JPanel;
 
 import twitter4j.User;
 
+/**
+ * プロフィールに変更を加えるクラスを表すインターフェース
+ * @author orekyuu
+ *
+ */
 public interface JavatterProfileBuilder {
 
 	/**

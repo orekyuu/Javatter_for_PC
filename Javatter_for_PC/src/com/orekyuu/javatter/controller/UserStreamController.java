@@ -7,10 +7,19 @@ import twitter4j.UserStreamAdapter;
 import com.orekyuu.javatter.account.TwitterManager;
 import com.orekyuu.javatter.logic.UserStreamLogic;
 
+/**
+ * ユーザーストリームのController
+ * @author orekyuu
+ *
+ */
 public class UserStreamController extends UserStreamAdapter{
 
 	private UserStreamLogic model;
 
+	/**
+	 * モデルを設定
+	 * @param model
+	 */
 	public void setModel(UserStreamLogic model){
 		this.model=model;
 	}

@@ -11,6 +11,11 @@ import com.orekyuu.javatter.account.TwitterManager;
 import com.orekyuu.javatter.model.ProfileModel;
 import com.orekyuu.javatter.viewobserver.ProfileViewObserver;
 
+/**
+ * プロフィールのController
+ * @author orekyuu
+ *
+ */
 public class ProfileController {
 
 	private ProfileModel model;
@@ -22,15 +27,27 @@ public class ProfileController {
 	private boolean followerHasNext=true;
 	private long follow=-1;
 	private boolean followHasNext=true;
+
+	/**
+	 *
+	 * @param user プロフィールに表示するユーザー
+	 */
 	public ProfileController(User user){
 		this.userName=user.getScreenName();
 		this.user=user;
 	}
 
+	/**
+	 * モデルを設定
+	 * @param model
+	 */
 	public void setModel(ProfileModel model){
 		this.model=model;
 	}
 
+	/**
+	 * ウィンドウを初期化
+	 */
 	public void init(){
 		Thread th=new Thread(){
 			@Override
@@ -55,6 +72,10 @@ public class ProfileController {
 		th.start();
 	}
 
+	/**
+	 * Viewを設定
+	 * @param view
+	 */
 	public void setView(ProfileViewObserver view){
 		this.view=view;
 	}
@@ -83,7 +104,7 @@ public class ProfileController {
 
 	/**
 	 * フォローリストを読み込みます
-	 * @param count
+	 * @param count 読み込む個数
 	 */
 	public void loadFollow(int count){
 		model.notifyFollow(count);
@@ -91,12 +112,18 @@ public class ProfileController {
 
 	/**
 	 * フォロワーリストを読み込みます
-	 * @param count
+	 * @param count 読み込む個数
 	 */
 	public void loadFollower(int count){
 		model.notifyFollower(count);
 	}
 
+	/**
+	 * フォロワーを読み込む
+	 * @param twitter Twitterインスタンス
+	 * @param screenName 対象のアカウント名
+	 * @return
+	 */
 	public long[] getFollowerUsers(Twitter twitter, String screenName){
 		long[] dataToReturn = null;
 		try {
@@ -112,6 +139,12 @@ public class ProfileController {
 		return dataToReturn;
 	}
 
+	/**
+	 * フォローしているユーザーを読み込む
+	 * @param twitter Twitterインスタンス
+	 * @param screenName 対象のアカウント名
+	 * @return
+	 */
 	public long[] getFollowUsers(Twitter twitter, String screenName){
 		long[] dataToReturn = null;
 		try {

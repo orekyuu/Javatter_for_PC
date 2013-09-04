@@ -10,6 +10,11 @@ import twitter4j.Status;
 import com.orekyuu.javatter.logic.TwitterUserEventLogic;
 import com.orekyuu.javatter.viewobserver.UserEventViewObserver;
 
+/**
+ * ユーザーイベントのモデル
+ * @author orekyuu
+ *
+ */
 public class UserEventListener implements TwitterUserEventLogic,ActionListener{
 
 	private Object rt;

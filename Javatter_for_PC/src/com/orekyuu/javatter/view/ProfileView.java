@@ -47,6 +47,11 @@ import com.orekyuu.javatter.util.TweetObjectFactory;
 import com.orekyuu.javatter.viewobserver.ProfileViewObserver;
 import com.orekyuu.javatter.viewobserver.UserEventViewObserver;
 
+/**
+ * プロフィールウィンドウ描画クラス
+ * @author orekyuu
+ *
+ */
 public class ProfileView implements ProfileViewObserver,AdjustmentListener, UserEventViewObserver, ActionListener{
 
 	private JDialog frame;

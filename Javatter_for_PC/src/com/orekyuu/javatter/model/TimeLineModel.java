@@ -5,6 +5,11 @@ import twitter4j.Status;
 import com.orekyuu.javatter.logic.UserStreamLogic;
 import com.orekyuu.javatter.viewobserver.UserStreamViewObserver;
 
+/**
+ * タイムラインのモデル
+ * @author orekyuu
+ *
+ */
 public class TimeLineModel implements UserStreamLogic {
 
 	private Status status;

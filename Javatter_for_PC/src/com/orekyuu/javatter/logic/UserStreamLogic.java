@@ -4,7 +4,11 @@ import twitter4j.Status;
 
 import com.orekyuu.javatter.viewobserver.UserStreamViewObserver;
 
-
+/**
+ * ユーザーストリームを表すロジック
+ * @author orekyuu
+ *
+ */
 public interface UserStreamLogic{
 
 	/**

@@ -11,12 +11,15 @@ import com.orekyuu.javatter.util.JavatterConfig;
 import com.orekyuu.javatter.util.TwitterUtil;
 import com.orekyuu.javatter.viewobserver.UserStreamViewObserver;
 
+/**
+ * Javaビームのモデル
+ * @author orekyuu
+ *
+ */
 public class JavaBeamModel implements UserStreamLogic {
 
 	private Status status;
 	private TwitterUtil util=new TwitterUtil();
-
-
 
 	@Override
 	public Status getStatus() {

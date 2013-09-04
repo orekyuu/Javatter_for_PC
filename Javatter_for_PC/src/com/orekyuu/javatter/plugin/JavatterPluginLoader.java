@@ -16,12 +16,21 @@ import com.orekyuu.javatter.controller.MainWindowController;
 import com.orekyuu.javatter.controller.PluginController;
 import com.orekyuu.javatter.view.MainWindowView;
 
+/**
+ * プラグインを読み込むクラス
+ * @author orekyuu
+ *
+ */
 public class JavatterPluginLoader
 {
 	private List<JavatterPlugin> plugins = new ArrayList<JavatterPlugin>();
 	private static List<JavatterProfileBuilder> profileBuilders=new ArrayList<JavatterProfileBuilder>();
 	private static List<TweetObjectBuilder> builders=new ArrayList<TweetObjectBuilder>();
 
+	/**
+	 * 指定されたディレクトリのプラグインを読み込む
+	 * @param file ディレクトリのパス
+	 */
 	public void loadPlugins(File file)
 	{
 		if (!file.exists()) {
@@ -49,6 +58,12 @@ public class JavatterPluginLoader
 	}
 
 
+	/**
+	 * プラグインを初期化する
+	 * @param pluginTab
+	 * @param controller
+	 * @param view
+	 */
 	public void initPlugins(PluginController pluginTab, MainWindowController controller, MainWindowView view)
 	{
 		for (JavatterPlugin plugin : this.plugins) {
@@ -63,6 +78,12 @@ public class JavatterPluginLoader
 		}
 	}
 
+	/**
+	 * プラグインをロード
+	 * @param file プラグインのファイル
+	 * @param loader クラスローダー
+	 * @throws Exception
+	 */
 	private void load(File file,ClassLoader loader)throws Exception
 	{
 		addLibrary(file, loader);
@@ -114,25 +135,43 @@ public class JavatterPluginLoader
 		m.invoke(loader, new Object[]{file.toURI().toURL()});
 	}
 
+	/**
+	 * TweetObjectBuilderのリストを返す
+	 * @return
+	 */
 	public static List<TweetObjectBuilder> getTweetObjectBuilder() {
 		return builders;
 	}
 
+	/**
+	 * ProfileBuilderのリストを返す
+	 * @return
+	 */
 	public static List<JavatterProfileBuilder> getProfileBuilder(){
 		return profileBuilders;
 	}
 
-
+	/**
+	 * TweetObjectBuilderを追加
+	 * @param builder
+	 */
 	protected static void addTweetObjectBuilder(TweetObjectBuilder builder) {
 		builders.add(builder);
 	}
 
-
+	/**
+	 * ProfileBuilderを追加
+	 * @param builder
+	 */
 	protected static void addProfileBuilder(JavatterProfileBuilder builder) {
 		profileBuilders.add(builder);
 	}
 
-
+	/**
+	 * プラグインが読み込まれているか
+	 * @param name プラグインの名前
+	 * @return
+	 */
 	public boolean isPluginLoaded(String name) {
 		for(JavatterPlugin plugin:plugins){
 			if(plugin.getPluginName().equals(name)){
