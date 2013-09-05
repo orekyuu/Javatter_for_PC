@@ -126,7 +126,7 @@ public class ProfileView implements ProfileViewObserver,AdjustmentListener, User
 		timelinePanel.removeAll();
 		while(!timeline.isEmpty()){
 			TweetObjectFactory factory=new TweetObjectFactory(timeline.poll(), builders);
-			timelinePanel.add(factory.createTweetObject(this));
+			timelinePanel.add(factory.createTweetObject(this).getComponent());
 		}
 	}
 

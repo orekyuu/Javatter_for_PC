@@ -6,7 +6,6 @@ import java.awt.event.AdjustmentListener;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.regex.Pattern;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
@@ -88,7 +87,7 @@ implements UserStreamViewObserver, IJavatterTab, AdjustmentListener
 
 	private JPanel createObject(Status status){
 		TweetObjectFactory factory = new TweetObjectFactory(status,builders);
-		return factory.createTweetObject(this.observer);
+		return (JPanel) factory.createTweetObject(this.observer).getComponent();
 	}
 
 	private synchronized void addObject(Status status){
