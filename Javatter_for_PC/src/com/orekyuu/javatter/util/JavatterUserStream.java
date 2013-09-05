@@ -48,155 +48,177 @@ public class JavatterUserStream implements UserStreamListener{
 
 	@Override
 	public void onDeletionNotice(StatusDeletionNotice arg0) {
-		for(UserStreamController c:controllers){
-			c.onDeletionNotice(arg0);
+		int size=controllers.size();
+		for(int i=0;i<size;i++){
+			controllers.get(i).onDeletionNotice(arg0);
 		}
 	}
 
 	@Override
 	public void onScrubGeo(long arg0, long arg1) {
-		for(UserStreamController c:controllers){
-			c.onScrubGeo(arg0, arg1);
+		int size=controllers.size();
+		for(int i=0;i<size;i++){
+			controllers.get(i).onScrubGeo(arg0, arg1);
 		}
 	}
 
 	@Override
 	public void onStallWarning(StallWarning arg0) {
-		for(UserStreamController c:controllers){
-			c.onStallWarning(arg0);
+		int size=controllers.size();
+		for(int i=0;i<size;i++){
+			controllers.get(i).onStallWarning(arg0);
 		}
 	}
 
 	@Override
 	public void onStatus(Status arg0) {
-		for(UserStreamController c:controllers){
-			c.onStatus(arg0);
+		int size=controllers.size();
+		for(int i=0;i<size;i++){
+			controllers.get(i).onStatus(arg0);
 		}
 	}
 
 	@Override
 	public void onTrackLimitationNotice(int arg0) {
-		for(UserStreamController c:controllers){
-			c.onTrackLimitationNotice(arg0);
+		int size=controllers.size();
+		for(int i=0;i<size;i++){
+			controllers.get(i).onTrackLimitationNotice(arg0);
 		}
 	}
 
 	@Override
 	public void onException(Exception arg0) {
-		for(UserStreamController c:controllers){
-			c.onException(arg0);
+		int size=controllers.size();
+		for(int i=0;i<size;i++){
+			controllers.get(i).onException(arg0);
 		}
 	}
 
 	@Override
 	public void onBlock(User arg0, User arg1) {
-		for(UserStreamController c:controllers){
-			c.onBlock(arg0,arg1);
+		int size=controllers.size();
+		for(int i=0;i<size;i++){
+			controllers.get(i).onBlock(arg0,arg1);
 		}
 	}
 
 	@Override
 	public void onDeletionNotice(long arg0, long arg1) {
-		for(UserStreamController c:controllers){
-			c.onDeletionNotice(arg0,arg1);
+		int size=controllers.size();
+		for(int i=0;i<size;i++){
+			controllers.get(i).onDeletionNotice(arg0,arg1);
 		}
 	}
 
 	@Override
 	public void onDirectMessage(DirectMessage arg0) {
-		for(UserStreamController c:controllers){
-			c.onDirectMessage(arg0);
+		int size=controllers.size();
+		for(int i=0;i<size;i++){
+			controllers.get(i).onDirectMessage(arg0);
 		}
 	}
 
 	@Override
 	public void onFavorite(User arg0, User arg1, Status arg2) {
-		for(UserStreamController c:controllers){
-			c.onFavorite(arg0,arg1,arg2);
+		int size=controllers.size();
+		for(int i=0;i<size;i++){
+			controllers.get(i).onFavorite(arg0,arg1,arg2);
 		}
 	}
 
 	@Override
 	public void onFollow(User arg0, User arg1) {
-		for(UserStreamController c:controllers){
-			c.onFollow(arg0,arg1);
+		int size=controllers.size();
+		for(int i=0;i<size;i++){
+			controllers.get(i).onFollow(arg0,arg1);
 		}
 	}
 
 	@Override
 	public void onFriendList(long[] arg0) {
-		for(UserStreamController c:controllers){
-			c.onFriendList(arg0);
+		int size=controllers.size();
+		for(int i=0;i<size;i++){
+			controllers.get(i).onFriendList(arg0);
 		}
 	}
 
 	@Override
 	public void onUnblock(User arg0, User arg1) {
-		for(UserStreamController c:controllers){
-			c.onUnblock(arg0,arg1);
+		int size=controllers.size();
+		for(int i=0;i<size;i++){
+			controllers.get(i).onUnblock(arg0,arg1);
 		}
 	}
 
 	@Override
 	public void onUnfavorite(User arg0, User arg1, Status arg2) {
-		for(UserStreamController c:controllers){
-			c.onUnfavorite(arg0,arg1,arg2);
+		int size=controllers.size();
+		for(int i=0;i<size;i++){
+			controllers.get(i).onUnfavorite(arg0,arg1,arg2);
 		}
 	}
 
 	@Override
 	public void onUserListCreation(User arg0, UserList arg1) {
-		for(UserStreamController c:controllers){
-			c.onUserListCreation(arg0,arg1);
+		int size=controllers.size();
+		for(int i=0;i<size;i++){
+			controllers.get(i).onUserListCreation(arg0,arg1);
 		}
 	}
 
 	@Override
 	public void onUserListDeletion(User arg0, UserList arg1) {
-		for(UserStreamController c:controllers){
-			c.onUserListDeletion(arg0,arg1);
+		int size=controllers.size();
+		for(int i=0;i<size;i++){
+			controllers.get(i).onUserListDeletion(arg0,arg1);
 		}
 	}
 
 	@Override
 	public void onUserListMemberAddition(User arg0, User arg1, UserList arg2) {
-		for(UserStreamController c:controllers){
-			c.onUserListMemberAddition(arg0,arg1,arg2);
+		int size=controllers.size();
+		for(int i=0;i<size;i++){
+			controllers.get(i).onUserListMemberAddition(arg0,arg1,arg2);
 		}
 	}
 
 	@Override
 	public void onUserListMemberDeletion(User arg0, User arg1, UserList arg2) {
-		for(UserStreamController c:controllers){
-			c.onUserListMemberDeletion(arg0, arg1, arg2);
+		int size=controllers.size();
+		for(int i=0;i<size;i++){
+			controllers.get(i).onUserListMemberDeletion(arg0, arg1, arg2);
 		}
 	}
 
 	@Override
 	public void onUserListSubscription(User arg0, User arg1, UserList arg2) {
-		for(UserStreamController c:controllers){
-			c.onUserListSubscription(arg0, arg1, arg2);
+		int size=controllers.size();
+		for(int i=0;i<size;i++){
+			controllers.get(i).onUserListSubscription(arg0, arg1, arg2);
 		}
 	}
 
 	@Override
 	public void onUserListUnsubscription(User arg0, User arg1, UserList arg2) {
-		for(UserStreamController c:controllers){
-			c.onUserListUnsubscription(arg0, arg1, arg2);
+		int size=controllers.size();
+		for(int i=0;i<size;i++){
+			controllers.get(i).onUserListUnsubscription(arg0, arg1, arg2);
 		}
 	}
 
 	@Override
 	public void onUserListUpdate(User arg0, UserList arg1) {
-		for(UserStreamController c:controllers){
-			c.onUserListUpdate(arg0, arg1);
+		int size=controllers.size();
+		for(int i=0;i<size;i++){
+			controllers.get(i).onUserListUpdate(arg0, arg1);
 		}
 	}
 
 	@Override
 	public void onUserProfileUpdate(User arg0) {
-		for(UserStreamController c:controllers){
-			c.onUserProfileUpdate(arg0);
+		int size=controllers.size();
+		for(int i=0;i<size;i++){
+			controllers.get(i).onUserProfileUpdate(arg0);
 		}
 	}
 
