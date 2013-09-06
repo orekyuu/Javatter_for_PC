@@ -39,6 +39,7 @@ public class JavatterPluginLoader
 			file.mkdir();
 		}
 
+
 		try{
 			URLClassLoader loader=(URLClassLoader) getClass().getClassLoader();
 
@@ -197,10 +198,25 @@ public class JavatterPluginLoader
 	 */
 	public boolean isPluginLoaded(String name) {
 		for(JavatterPlugin plugin:plugins){
+			System.out.println(plugin.getPluginName());
 			if(plugin.getPluginName().equals(name)){
 				return true;
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * 文字列からプラグインを取得します
+	 * @param name 取得したいプラグインの名前
+	 * @return
+	 */
+	protected JavatterPlugin getPlugin(String name){
+		for(JavatterPlugin plugin:plugins){
+			if(plugin.getPluginName().equals(name)){
+				return plugin;
+			}
+		}
+		return null;
 	}
 }

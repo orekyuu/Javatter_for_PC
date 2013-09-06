@@ -268,4 +268,13 @@ public abstract class JavatterPlugin
 	protected int getJavatterVersion(){
 		return Main.getJavatterVersion();
 	}
+
+	/**
+	 * プラグインの名前からプラグインインスタンスを取得します
+	 * @param pluginName プラグインの名前
+	 * @return
+	 */
+	protected JavatterPlugin getPlugin(String pluginName){
+		return loader.getPlugin(pluginName);
+	}
 }
