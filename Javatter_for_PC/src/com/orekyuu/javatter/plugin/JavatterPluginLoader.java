@@ -27,6 +27,7 @@ public class JavatterPluginLoader
 	private static List<JavatterProfileBuilder> profileBuilders=new ArrayList<JavatterProfileBuilder>();
 	private static List<TweetObjectBuilder> builders=new ArrayList<TweetObjectBuilder>();
 	private static List<String> loadedPluginFiles=new ArrayList<String>();
+	private static List<String> mainClassList=new ArrayList<String>();
 
 	/**
 	 * 指定されたディレクトリのプラグインを読み込む
@@ -44,6 +45,16 @@ public class JavatterPluginLoader
 			for (File f : file.listFiles()){
 				if (f.getName().endsWith(".jar")&&!isLoadedPluginFile(f.getName())) {
 					load(f,loader);
+				}
+			}
+
+			for(String main:mainClassList){
+				Class<?> plugin=loader.loadClass(main);
+				Object obj=plugin.newInstance();
+				if(obj instanceof JavatterPlugin){
+					JavatterPlugin p=(JavatterPlugin) obj;
+					plugins.add(p);
+					loadedPluginFiles.add(file.getName());
 				}
 			}
 		}catch(Exception e){
@@ -110,13 +121,7 @@ public class JavatterPluginLoader
 		Manifest manifest=jar.getManifest();
 		Attributes attributes = manifest.getMainAttributes();
 		String mainClass = attributes.getValue("Plugin-Main");
-		Class<?> plugin=loader.loadClass(mainClass);
-		Object obj=plugin.newInstance();
-		if(obj instanceof JavatterPlugin){
-			JavatterPlugin p=(JavatterPlugin) obj;
-			plugins.add(p);
-			loadedPluginFiles.add(file.getName());
-		}
+		mainClassList.add(mainClass);
 	}
 
 	private void load(ClassLoader loader) throws Exception
