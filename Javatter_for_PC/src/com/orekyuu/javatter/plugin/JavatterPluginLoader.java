@@ -12,8 +12,6 @@ import java.util.jar.Attributes;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
 
-import javatter.plugin.kankore.KankoreTimer;
-
 import com.orekyuu.javatter.controller.MainWindowController;
 import com.orekyuu.javatter.controller.PluginController;
 import com.orekyuu.javatter.view.MainWindowView;
