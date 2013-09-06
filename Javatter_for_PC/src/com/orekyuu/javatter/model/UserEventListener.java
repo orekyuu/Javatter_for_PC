@@ -48,7 +48,6 @@ public class UserEventListener implements TwitterUserEventLogic,ActionListener{
 		if(e.getSource().equals(rt)){
 			view.onUserEvent("rt", tweet);
 			JToggleButton b=(JToggleButton) rt;
-			b.setSelected(false);
 			b.setEnabled(false);
 		}else if(e.getSource().equals(fav)){
 			JToggleButton b=(JToggleButton) fav;

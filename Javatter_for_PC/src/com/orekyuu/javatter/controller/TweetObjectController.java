@@ -44,7 +44,7 @@ public class TweetObjectController extends UserStreamController{
 
 	@Override
 	public void onFavorite(User source, User target, Status favoritedStatus) {
-		if(status.getId()==favoritedStatus.getId()){
+		if(status.getId()==favoritedStatus.getId()||(status.isRetweet()&&status.getRetweetedStatus().getId()==status.getId())){
 			if(source.getId()==user){
 				logic.onFavoriteByMe();
 			}else{
@@ -55,7 +55,7 @@ public class TweetObjectController extends UserStreamController{
 
 	@Override
 	public void onUnfavorite(User source, User target, Status unfavoritedStatus) {
-		if(status.getId()==unfavoritedStatus.getId()){
+		if(status.getId()==unfavoritedStatus.getId()||(status.isRetweet()&&status.getRetweetedStatus().getId()==status.getId())){
 			if(source.getId()==user){
 				logic.unFavoriteByMe();
 			}else{

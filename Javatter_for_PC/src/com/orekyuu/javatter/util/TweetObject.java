@@ -27,8 +27,10 @@ import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 
 import twitter4j.Status;
+import twitter4j.TwitterException;
 import twitter4j.User;
 
+import com.orekyuu.javatter.account.TwitterManager;
 import com.orekyuu.javatter.controller.ProfileController;
 import com.orekyuu.javatter.logic.TweetObjectLogic;
 import com.orekyuu.javatter.model.ProfileModel;
@@ -183,7 +185,13 @@ public class TweetObject implements IJavatterTab,HyperlinkListener, MouseListene
 		rt = new JToggleButton("RT");
 		rt.addActionListener(model);
 		model.setRtButton(rt);
-		rt.setEnabled(!s.isRetweetedByMe());
+		try {
+			rt.setEnabled(!(status.isRetweet()&&status.getUser().getId()==TwitterManager.getInstance().getTwitter().getId()));
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (TwitterException e) {
+			e.printStackTrace();
+		}
 		panel.add(rt);
 
 		fav = new JToggleButton("☆");
