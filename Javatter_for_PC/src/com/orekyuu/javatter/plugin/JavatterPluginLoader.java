@@ -26,6 +26,7 @@ public class JavatterPluginLoader
 	private List<JavatterPlugin> plugins = new ArrayList<JavatterPlugin>();
 	private static List<JavatterProfileBuilder> profileBuilders=new ArrayList<JavatterProfileBuilder>();
 	private static List<TweetObjectBuilder> builders=new ArrayList<TweetObjectBuilder>();
+	private static List<String> loadedPluginFiles=new ArrayList<String>();
 
 	/**
 	 * 指定されたディレクトリのプラグインを読み込む
@@ -41,7 +42,7 @@ public class JavatterPluginLoader
 			URLClassLoader loader=(URLClassLoader) getClass().getClassLoader();
 
 			for (File f : file.listFiles()){
-				if (f.getName().endsWith(".jar")) {
+				if (f.getName().endsWith(".jar")&&!isLoadedPluginFile(f.getName())) {
 					load(f,loader);
 				}
 			}
@@ -57,6 +58,13 @@ public class JavatterPluginLoader
 		}
 	}
 
+	private boolean isLoadedPluginFile(String name){
+		for(String file:loadedPluginFiles){
+			if(file.equals(name))return true;
+		}
+		return false;
+	}
+
 
 	/**
 	 * プラグインを初期化する
@@ -67,14 +75,18 @@ public class JavatterPluginLoader
 	public void initPlugins(PluginController pluginTab, MainWindowController controller, MainWindowView view)
 	{
 		for (JavatterPlugin plugin : this.plugins) {
-			plugin.setMainViewAndController(view, controller);
-			plugin.initPlugin();
-			pluginTab.addPluginName(plugin.getPluginName(),plugin.getVersion());
-			pluginTab.addPluginConfig(plugin.getPluginName(), plugin.getPluginConfigView());
+			if(!plugin.isLoaded()){
+				plugin.setMainViewAndController(view, controller);
+				plugin.initPlugin();
+				pluginTab.addPluginName(plugin.getPluginName(),plugin.getVersion());
+				pluginTab.addPluginConfig(plugin.getPluginName(), plugin.getPluginConfigView());
+			}
 		}
-
 		for(JavatterPlugin plugin : this.plugins){
-			plugin.postInit();
+			if(!plugin.isLoaded()){
+				plugin.postInit();
+				plugin.load();
+			}
 		}
 	}
 
@@ -97,6 +109,7 @@ public class JavatterPluginLoader
 		if(obj instanceof JavatterPlugin){
 			JavatterPlugin p=(JavatterPlugin) obj;
 			plugins.add(p);
+			loadedPluginFiles.add(file.getName());
 			p.preInit();
 		}
 	}

@@ -17,6 +17,8 @@ import com.orekyuu.javatter.view.MainWindowView;
 public class PluginController
 {
 	private PluginModel model;
+	private MainWindowController controller;
+	private MainWindowView view;
 
 	/**
 	 * モデルを設定
@@ -28,18 +30,39 @@ public class PluginController
 	}
 
 	/**
-	 * プラグインをロード
+	 * メインViewとControllerのセッタ
 	 * @param controller
 	 * @param view
 	 */
-	public void load(MainWindowController controller, MainWindowView view) {
+	public void setViewAndController(MainWindowController controller, MainWindowView view){
+		this.controller=controller;
+		this.view=view;
+	}
+
+	/**
+	 * プラグインをロード
+	 */
+	public void load() {
+		addPluginName("全般","");
+		addPluginConfig("全般", new JavatterPluginConfigTab(this));
+		JavatterPluginLoader pluginLoader = new JavatterPluginLoader();
+		if(SaveDataManager.getInstance().getSaveData("JavatterConfig").getBoolean("isLoad")){
+			pluginLoader.loadPlugins(new File("plugins/"));
+		}
+
+		pluginLoader.initPlugins(this, controller, view);
+		notifyModel();
+	}
+
+	/**
+	 * プラグインをリロード
+	 */
+	public void reloadPlugin(){
 		JavatterPluginLoader pluginLoader = new JavatterPluginLoader();
 		if(SaveDataManager.getInstance().getSaveData("JavatterConfig").getBoolean("isLoad")){
 			pluginLoader.loadPlugins(new File("plugins/"));
 		}
 		pluginLoader.initPlugins(this, controller, view);
-		addPluginName("全般","");
-		addPluginConfig("全般", new JavatterPluginConfigTab());
 		notifyModel();
 	}
 

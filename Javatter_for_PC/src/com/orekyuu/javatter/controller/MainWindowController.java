@@ -164,7 +164,8 @@ public class MainWindowController
 		pluginController.setModel(pluginModel);
 		pluginModel.setView(pluginView);
 		this.view.addMenuTab("プラグイン管理", pluginView);
-		pluginController.load(this, this.view);
+		pluginController.setViewAndController(this, this.view);
+		pluginController.load();
 
 		Thread th = new Thread()
 		{

@@ -58,6 +58,11 @@ public abstract class JavatterPlugin
 	 */
 	private IJavatterTab configTab;
 
+	/**
+	 * ロード済みかどうか
+	 */
+	private boolean isLoaded;
+
 	public JavatterPlugin(){
 		twitter=TwitterManager.getInstance().getTwitter();
 		try {
@@ -70,6 +75,14 @@ public abstract class JavatterPlugin
 		dir=new File("SaveData/"+getPluginName());
 		registerSaveData();
 		configTab=getPluginConfigViewObserver();
+	}
+
+	protected final void load(){
+		isLoaded=true;
+	}
+
+	protected final boolean isLoaded(){
+		return isLoaded;
 	}
 
 	/**
