@@ -92,7 +92,7 @@ public class TweetObject implements IJavatterTab,HyperlinkListener, MouseListene
 			if (this.status.isRetweet()) {
 				Status rt = this.status.getRetweetedStatus();
 				imgPanel.add(createImageLabel(rt, tracker, 48));
-				imgPanel.add(createImageLabel(status, tracker, 20));
+				imgPanel.add(createImageLabel(status, tracker, 30));
 			} else {
 				imgPanel.add(createImageLabel(status, tracker, 48));
 			}
@@ -238,9 +238,17 @@ public class TweetObject implements IJavatterTab,HyperlinkListener, MouseListene
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
+		Status s=status;
+		if(status.isRetweet()){
+			JLabel label=(JLabel) arg0.getSource();
+			if(label.getIcon().getIconHeight()==48){
+				s=status.getRetweetedStatus();
+			}
+		}
+
 		ProfileView view=new ProfileView(builders);
 		ProfileModel model=new ProfileModel();
-		ProfileController controller=new ProfileController(status.getUser());
+		ProfileController controller=new ProfileController(s.getUser());
 		view.setController(controller);
 		model.setView(view);
 		controller.setModel(model);
