@@ -8,7 +8,6 @@ import twitter4j.Status;
 import twitter4j.User;
 
 import com.orekyuu.javatter.util.ImageManager;
-import com.orekyuu.javatter.util.JavatterConfig;
 import com.orekyuu.javatter.viewobserver.PopupViewObserver;
 
 /**
