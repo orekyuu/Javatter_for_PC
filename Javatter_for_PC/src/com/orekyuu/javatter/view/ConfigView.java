@@ -1,13 +1,11 @@
 package com.orekyuu.javatter.view;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.orekyuu.javatter.controller.ConfigController;
@@ -26,6 +24,7 @@ public class ConfigView implements IJavatterTab,ConfigViewObserver,ActionListene
 	private ConfigController controller;
 	private JCheckBox javaBeamRT;
 	private JCheckBox thanks;
+	private JCheckBox taskbar;
 
 	@Override
 	public Component getComponent() {
@@ -35,39 +34,17 @@ public class ConfigView implements IJavatterTab,ConfigViewObserver,ActionListene
 		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 		panel.setBackground(BackGroundColor.color);
 
-		{
-			JPanel p=new JPanel();
-			p.setLayout(new BoxLayout(p, BoxLayout.LINE_AXIS));
-			p.setBackground(BackGroundColor.color);
+		javaBeamRT=new JCheckBox("JavaビームオートRT");
+		javaBeamRT.addActionListener(this);
+		panel.add(javaBeamRT);
 
-			JLabel label=new JLabel("JavaビームオートRT");
-			label.setAlignmentX(0);
-			p.add(label,BorderLayout.LINE_START);
+		taskbar=new JCheckBox("タスクバーの通知を使用する");
+		taskbar.addActionListener(this);
+		panel.add(taskbar);
 
-			javaBeamRT=new JCheckBox();
-			javaBeamRT.setAlignmentX(0);
-			javaBeamRT.addActionListener(this);
-			p.add(javaBeamRT);
-			p.setAlignmentX(0);
-			panel.add(p);
-		}
-
-		{
-			JPanel p=new JPanel();
-			p.setLayout(new BoxLayout(p, BoxLayout.LINE_AXIS));
-			p.setBackground(BackGroundColor.color);
-
-			JLabel label=new JLabel("ふぁぼありがとうございます");
-			label.setAlignmentX(0);
-			p.add(label,BorderLayout.LINE_START);
-
-			thanks=new JCheckBox();
-			thanks.setAlignmentX(0);
-			thanks.addActionListener(this);
-			p.add(thanks);
-			p.setAlignmentX(0);
-			panel.add(p);
-		}
+		thanks=new JCheckBox("ふぁぼありがとうございます");
+		thanks.addActionListener(this);
+		panel.add(thanks);
 
 		return panel;
 	}
@@ -79,6 +56,9 @@ public class ConfigView implements IJavatterTab,ConfigViewObserver,ActionListene
 		}
 		if(e.getSource().equals(thanks)){
 			controller.thanks(thanks.isSelected());
+		}
+		if(e.getSource().equals(taskbar)){
+			controller.taskbarUpdate(taskbar.isSelected());
 		}
 	}
 
@@ -94,6 +74,8 @@ public class ConfigView implements IJavatterTab,ConfigViewObserver,ActionListene
 		javaBeamRT.updateUI();
 		thanks.setSelected(conf.getThanks());
 		thanks.updateUI();
+		taskbar.setSelected(conf.getUseTaskbar());
+		taskbar.updateUI();
 	}
 
 }

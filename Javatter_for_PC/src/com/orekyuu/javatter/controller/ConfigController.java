@@ -45,4 +45,8 @@ public class ConfigController {
 	public void thanks(boolean selected) {
 		JavatterConfig.getInstance().setThanks(selected);
 	}
+
+	public void taskbarUpdate(boolean selected){
+		JavatterConfig.getInstance().setUseTaskbar(selected);
+	}
 }

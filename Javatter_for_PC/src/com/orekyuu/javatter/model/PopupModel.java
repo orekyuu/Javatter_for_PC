@@ -18,6 +18,7 @@ public class PopupModel {
 
 	private PopupViewObserver view;
 	private TwitterUtil util=new TwitterUtil();
+	private JavatterConfig conf=JavatterConfig.getInstance();
 
 	/**
 	 * Viewを設定
@@ -33,7 +34,8 @@ public class PopupModel {
 	 * @param status
 	 */
 	public void onFav(User user,Status status){
-		view.onFav(user,status);
+		if(conf.getUseTaskbar())
+			view.onFav(user,status);
 		if(JavatterConfig.getInstance().getThanks()){
 			try {
 				util.tweet(TwitterManager.getInstance().getTwitter(), "@"+user.getScreenName()+" ふぁぼありがとうございます。");
@@ -49,7 +51,8 @@ public class PopupModel {
 	 * @param rt RTされたStatus
 	 */
 	public void onRT(User rtUser,Status rt){
-		view.onRT(rtUser, rt);
+		if(conf.getUseTaskbar())
+			view.onRT(rtUser, rt);
 	}
 
 	/**
@@ -58,7 +61,8 @@ public class PopupModel {
 	 * @param status あんふぁぼされたつぶやき
 	 */
 	public void onUnFav(User user,Status status){
-		view.onUnFav(user,status);
+		if(conf.getUseTaskbar())
+			view.onUnFav(user,status);
 	}
 
 	/**
@@ -66,7 +70,8 @@ public class PopupModel {
 	 * @param user
 	 */
 	public void onFollow(User user){
-		view.onFollow(user);
+		if(conf.getUseTaskbar())
+			view.onFollow(user);
 	}
 
 	/**
@@ -74,6 +79,7 @@ public class PopupModel {
 	 * @param user
 	 */
 	public void onBlock(User user){
-		view.onBlock(user);
+		if(conf.getUseTaskbar())
+			view.onBlock(user);
 	}
 }
