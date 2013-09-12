@@ -92,19 +92,17 @@ public class TwitterUtil {
 	 * @param status お気に入りに登録するつぶやき
 	 */
 	public void fav(final Twitter twitter,final Status status){
-		if(status.isFavorited()){
-			Thread th=new Thread(){
-				@Override
-				public void run(){
-					try {
-						twitter.createFavorite(status.getId());
-					} catch (TwitterException e) {
-						e.printStackTrace();
-					}
+		Thread th=new Thread(){
+			@Override
+			public void run(){
+				try {
+					twitter.createFavorite(status.getId());
+				} catch (TwitterException e) {
+					e.printStackTrace();
 				}
-			};
-			th.start();
-		}
+			}
+		};
+		th.start();
 	}
 
 	/**
@@ -121,19 +119,17 @@ public class TwitterUtil {
 	 * @param status
 	 */
 	public void unfav(final Twitter twitter,final Status status) {
-		if(!status.isFavorited()){
-			Thread th=new Thread(){
-				@Override
-				public void run(){
-					try {
-						twitter.destroyFavorite(status.getId());
-					} catch (TwitterException e) {
-						e.printStackTrace();
-					}
+		Thread th=new Thread(){
+			@Override
+			public void run(){
+				try {
+					twitter.destroyFavorite(status.getId());
+				} catch (TwitterException e) {
+					e.printStackTrace();
 				}
-			};
-			th.start();
-		}
+			}
+		};
+		th.start();
 	}
 
 }
