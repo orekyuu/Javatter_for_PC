@@ -46,7 +46,19 @@ public class ConfigController {
 		JavatterConfig.getInstance().setThanks(selected);
 	}
 
+	/**
+	 * タスクバーの設定を更新
+	 * @param selected
+	 */
 	public void taskbarUpdate(boolean selected){
 		JavatterConfig.getInstance().setUseTaskbar(selected);
+	}
+
+	/**
+	 * ローカルキャッシュの設定を更新
+	 * @param selected
+	 */
+	public void cacheUpdate(boolean selected){
+		JavatterConfig.getInstance().setUseLocalCache(selected);
 	}
 }

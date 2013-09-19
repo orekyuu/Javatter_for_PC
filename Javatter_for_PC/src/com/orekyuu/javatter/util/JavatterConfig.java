@@ -27,6 +27,7 @@ public class JavatterConfig {
 		savedata.setDefaultValue("thanks", false);
 		savedata.setDefaultValue("isLoad", true);
 		savedata.setDefaultValue("useTaskbar", true);
+		savedata.setDefaultValue("useLocalCache", true);
 	}
 
 	/**
@@ -84,5 +85,21 @@ public class JavatterConfig {
 	 */
 	public boolean getUseTaskbar(){
 		return savedata.getBoolean("useTaskbar");
+	}
+
+	/**
+	 * ローカルキャッシュのフラグを設定する
+	 * @param flag
+	 */
+	public void setUseLocalCache(boolean flag){
+		savedata.setBoolean("useLocalCache", flag);
+	}
+
+	/**
+	 * ローカルキャッシュの設定を返す
+	 * @return
+	 */
+	public boolean getUseLocalCache(){
+		return savedata.getBoolean("useLocalCache");
 	}
 }
