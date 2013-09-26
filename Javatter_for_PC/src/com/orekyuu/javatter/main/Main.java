@@ -2,9 +2,12 @@ package com.orekyuu.javatter.main;
 
 import java.net.MalformedURLException;
 
+import javax.swing.ImageIcon;
+
 import twitter4j.TwitterException;
 
 import com.orekyuu.javatter.controller.MainWindowController;
+import com.orekyuu.javatter.util.ImageManager;
 import com.orekyuu.javatter.util.JavatterConfig;
 import com.orekyuu.javatter.util.SaveDataManager;
 import com.orekyuu.javatter.view.MainWindowView;
@@ -25,6 +28,9 @@ public class Main {
 
 		view.create();
 		controller.start();
+		view.setStatus(
+				new ImageIcon(ImageManager.getInstance().getImage("status_apply"))
+				, "起動に成功しました");
 	}
 
 	/**

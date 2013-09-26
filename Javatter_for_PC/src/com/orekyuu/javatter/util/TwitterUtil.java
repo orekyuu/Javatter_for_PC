@@ -2,10 +2,15 @@ package com.orekyuu.javatter.util;
 
 import java.io.File;
 
+import javax.swing.ImageIcon;
+
 import twitter4j.Status;
 import twitter4j.StatusUpdate;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
+
+import com.orekyuu.javatter.main.Main;
+import com.orekyuu.javatter.view.MainWindowView;
 
 /**
  * Twitterでのアクションを補助するクラス
@@ -28,6 +33,7 @@ public class TwitterUtil {
 		Thread th=new Thread(){
 			@Override
 			public void run(){
+				boolean isComplete = true;
 				try {
 					StatusUpdate update=new StatusUpdate(message);
 					if(replyID!=-1){
@@ -42,6 +48,19 @@ public class TwitterUtil {
 					twitter.updateStatus(update);
 				} catch (TwitterException e) {
 					e.printStackTrace();
+					if (e.getErrorCode() == 187) {
+						// ツイート重複
+						Main.getMainView().setStatus(
+								new ImageIcon(ImageManager.getInstance().getImage("status_error")),
+								"ツイートが重複しています");
+					}
+					isComplete = false;
+				}
+				if (isComplete) {
+
+					Main.getMainView().setStatus(
+							new ImageIcon(ImageManager.getInstance().getImage("status_apply")),
+							"ツイートに成功しました : " + message);
 				}
 			}
 		};

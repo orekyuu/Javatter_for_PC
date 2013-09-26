@@ -3,6 +3,7 @@ package com.orekyuu.javatter.view;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -15,8 +16,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.imageio.ImageIO;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -56,6 +60,16 @@ public class MainWindowView implements TweetViewObserver, ActionListener, UserEv
 	private JTabbedPane tab;
 	private JTabbedPane menuTab;
 	private TwitterUtil util;
+
+	/* ******** ステータスバー ******** */
+	/** ステータスバーパネル. */
+	private JPanel statusBarPanel;
+
+	/** ステータスバーアイコン. */
+	private static JLabel statusBarIcon;
+
+	/** ステータスバーテキスト. */
+	private static JLabel statusBarText;
 
 	/**
 	 * ツイートを書くためのテキストエリアを返す
@@ -184,8 +198,37 @@ public class MainWindowView implements TweetViewObserver, ActionListener, UserEv
 		menuPanel.add(this.menuTab);
 		menuPanel.setBorder(new BevelBorder(0));
 
+		statusBarPanel = new JPanel();
+		statusBarPanel.setLayout(new BorderLayout());
+		statusBarPanel.addMouseListener(new MouseListener() {
+			@Override
+			public void mouseClicked(MouseEvent e) { }
+			@Override
+			public void mousePressed(MouseEvent e) { }
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				if (-1 < e.getX() && -1 < e.getY()
+						&& e.getX() < e.getComponent().getWidth()
+						&& e.getY() < e.getComponent().getHeight()) {
+					new StatusLogView(window);
+				}
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) { }
+			@Override
+			public void mouseExited(MouseEvent e) { }
+
+		});
+		statusBarIcon = new JLabel((Icon) null, JLabel.CENTER);
+		statusBarIcon.setPreferredSize(new Dimension(21, 21));
+		statusBarText = new JLabel();
+		statusBarText.setFont(new Font("Meiryo UI", Font.PLAIN, 12));
+		statusBarPanel.add(statusBarIcon, BorderLayout.WEST);
+		statusBarPanel.add(statusBarText, BorderLayout.CENTER);
+
 		container.add(mainPanel, "Center");
 		container.add(this.menuTab, "After");
+		container.add(statusBarPanel, "Last");
 
 		this.window.setVisible(true);
 	}
@@ -304,5 +347,34 @@ public class MainWindowView implements TweetViewObserver, ActionListener, UserEv
 		Image img = ImageManager.getInstance().getImage("preview").getScaledInstance(100, 100, 4);
 		this.image.setIcon(new ImageIcon(img));
 		util.setImage(null);
+	}
+
+	/**
+	 * ステータスバーにアイコンとテキストをセットする.
+	 * デフォルトで用意されている標準アイコンの他21x21px以内のアイコンを使用可能.<br />
+	 * 標準アイコンは<code>com.orekyuu.javatter.util.ImageManager</code>から取得できる.<br />
+	 * 成功アイコン:<code>"status_apply"</code> エラーアイコン:<code>"status_error"</code>
+	 * @param icon アイコン<br />
+	 * @param text テキスト
+	 */
+	public void setStatus(ImageIcon icon, String text) {
+		SimpleDateFormat format = new SimpleDateFormat("HH:mm.ss - ");
+		Date date = new Date();
+		text = format.format(date) + text;
+
+		statusBarIcon.setIcon(icon);
+		statusBarText.setText(" " + text);
+		StatusLogView.addLog(text);
+
+		/* アイコンを5秒でクリアする,つもりだったがなんか違う感があるのでコメントアウト
+		Timer timer = new Timer(5000, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				statusBarIcon.setIcon(null);
+			}
+		});
+		timer.setRepeats(false);
+		timer.start();
+		*/
 	}
 }

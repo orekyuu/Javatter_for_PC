@@ -26,6 +26,12 @@ public class ImageManager {
 	public static final String PREVIEW = "preview";
 	private static ImageManager instance=new ImageManager();
 
+	/** ステータスバーの標準通常アイコン. */
+	public static final String STATUS_NORMAL = "status_apply";
+
+	/** ステータスバーの標準エラーアイコン. */
+	public static final String STATUS_ERROR = "status_error";
+
 	private ImageManager(){
 		clazz=getClass();
 		load();
@@ -34,6 +40,8 @@ public class ImageManager {
 	private void load(){
 		map.put(ICON, loadImage("javatter.png"));
 		map.put(PREVIEW, loadImage("preview.png"));
+		map.put(STATUS_NORMAL, loadImage("status_apply.png"));
+		map.put(STATUS_ERROR, loadImage("status_error.png"));
 	}
 
 	private Image loadImage(String path){
