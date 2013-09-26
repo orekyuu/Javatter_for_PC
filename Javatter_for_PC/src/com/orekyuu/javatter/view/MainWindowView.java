@@ -127,11 +127,9 @@ public class MainWindowView implements TweetViewObserver, ActionListener, UserEv
 				if ((e.getModifiersEx() & 0x80) != 0) {
 					if (e.getKeyCode() == 10) {
 						MainWindowView.this.tweetButton.doClick();
-						MainWindowView.this.clear();
 					}
 					if (e.getKeyCode() == 74) {
 						MainWindowView.this.javaButton.doClick();
-						MainWindowView.this.clear();
 					}
 				}
 			}
@@ -269,6 +267,7 @@ public class MainWindowView implements TweetViewObserver, ActionListener, UserEv
 				e.printStackTrace();
 			}
 			this.textArea.setText("");
+			MainWindowView.this.clear();
 		}
 		if (arg0.getSource().equals(this.javaButton)) {
 			try {
@@ -277,6 +276,7 @@ public class MainWindowView implements TweetViewObserver, ActionListener, UserEv
 				e.printStackTrace();
 			}
 			this.textArea.setText("");
+			MainWindowView.this.clear();
 		}
 	}
 
