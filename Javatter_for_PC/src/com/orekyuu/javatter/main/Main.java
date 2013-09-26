@@ -54,6 +54,6 @@ public class Main {
 	 * @return
 	 */
 	public static int getJavatterVersion(){
-		return 5;
+		return 6;
 	}
 }
