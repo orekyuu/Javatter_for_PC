@@ -25,6 +25,7 @@ public class ConfigView implements IJavatterTab,ConfigViewObserver,ActionListene
 	private JCheckBox javaBeamRT;
 	private JCheckBox thanks;
 	private JCheckBox taskbar;
+	private JCheckBox cache;
 
 	@Override
 	public Component getComponent() {
@@ -46,6 +47,10 @@ public class ConfigView implements IJavatterTab,ConfigViewObserver,ActionListene
 		thanks.addActionListener(this);
 		panel.add(thanks);
 
+		cache=new JCheckBox("ローカルキャッシュを使用する");
+		cache.addActionListener(this);
+		panel.add(cache);
+
 		return panel;
 	}
 
@@ -59,6 +64,9 @@ public class ConfigView implements IJavatterTab,ConfigViewObserver,ActionListene
 		}
 		if(e.getSource().equals(taskbar)){
 			controller.taskbarUpdate(taskbar.isSelected());
+		}
+		if(e.getSource().equals(cache)){
+			controller.cacheUpdate(cache.isSelected());
 		}
 	}
 
@@ -76,6 +84,8 @@ public class ConfigView implements IJavatterTab,ConfigViewObserver,ActionListene
 		thanks.updateUI();
 		taskbar.setSelected(conf.getUseTaskbar());
 		taskbar.updateUI();
+		cache.setSelected(conf.getUseLocalCache());
+		cache.updateUI();
 	}
 
 }
