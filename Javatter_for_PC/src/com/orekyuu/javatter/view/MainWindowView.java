@@ -43,6 +43,7 @@ public class MainWindowView implements TweetViewObserver, ActionListener, UserEv
 	private JTabbedPane menuTab;
 	private TwitterUtil util;
 
+    /** リプライの正規表現. */
     private final String replyRegex = "(?<![0-9a-zA-Z'\\\\\"#@=:;])@([0-9a-zA-Z_]{1,15})";
 
 	/* ******** ステータスバー ******** */
