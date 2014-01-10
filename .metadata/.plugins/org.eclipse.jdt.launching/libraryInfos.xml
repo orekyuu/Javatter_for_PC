@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<libraryInfos>
+<libraryInfo home="C:\pleiades\java\7" version="1.7.0_40">
+<bootpath>
+<entry path="C:\pleiades\java\7\lib\resources.jar"/>
+<entry path="C:\pleiades\java\7\lib\rt.jar"/>
+<entry path="C:\pleiades\java\7\lib\sunrsasign.jar"/>
+<entry path="C:\pleiades\java\7\lib\jsse.jar"/>
+<entry path="C:\pleiades\java\7\lib\jce.jar"/>
+<entry path="C:\pleiades\java\7\lib\charsets.jar"/>
+<entry path="C:\pleiades\java\7\lib\jfr.jar"/>
+<entry path="C:\pleiades\java\7\classes"/>
+</bootpath>
+<extensionDirs>
+<entry path="C:\pleiades\java\7\lib\ext"/>
+<entry path="C:\Windows\Sun\Java\lib\ext"/>
+</extensionDirs>
+<endorsedDirs>
+<entry path="C:\pleiades\java\7\lib\endorsed"/>
+</endorsedDirs>
+</libraryInfo>
+<libraryInfo home="C:\pleiades\java\6" version="1.6.0_45">
+<bootpath>
+<entry path="C:\pleiades\java\6\lib\resources.jar"/>
+<entry path="C:\pleiades\java\6\lib\rt.jar"/>
+<entry path="C:\pleiades\java\6\lib\sunrsasign.jar"/>
+<entry path="C:\pleiades\java\6\lib\jsse.jar"/>
+<entry path="C:\pleiades\java\6\lib\jce.jar"/>
+<entry path="C:\pleiades\java\6\lib\charsets.jar"/>
+<entry path="C:\pleiades\java\6\lib\modules\jdk.boot.jar"/>
+<entry path="C:\pleiades\java\6\classes"/>
+</bootpath>
+<extensionDirs>
+<entry path="C:\pleiades\java\6\lib\ext"/>
+<entry path="C:\Windows\Sun\Java\lib\ext"/>
+</extensionDirs>
+<endorsedDirs>
+<entry path="C:\pleiades\java\6\lib\endorsed"/>
+</endorsedDirs>
+</libraryInfo>
+</libraryInfos>

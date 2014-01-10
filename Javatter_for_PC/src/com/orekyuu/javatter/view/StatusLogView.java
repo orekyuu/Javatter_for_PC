@@ -26,24 +26,24 @@ import javax.swing.JScrollPane;
  *
  */
 public class StatusLogView extends JDialog {
-	
+
 	/** リストのモデル. */
 	private DefaultListModel<String> listModel;
-	
+
 	/** リスト. */
 	private JList<String> list;
-	
+
 	/** スクロールバー. */
 	private JScrollPane scrollPane;
-	
+
 	/** クリアボタン. */
 	private JButton buttonClear;
-	
+
 	/** ログ. */
 	private static List<String> log = new ArrayList<String>();;
-	
+
 	/**
-	 * 
+	 *
 	 * @param parent 親フレーム（だいたいはMainWindowViewのwindowを指定する）
 	 */
 	public StatusLogView(JFrame parent) {
@@ -51,7 +51,7 @@ public class StatusLogView extends JDialog {
 		setLayout(new BorderLayout());
 		setModal(true);
 		setSize(400, 500);
-		
+
 		listModel = new DefaultListModel<String>();
 		list = new JList<String>(listModel);
 		for (String str : log) {
@@ -61,7 +61,7 @@ public class StatusLogView extends JDialog {
 		list.setFont(new Font("Meiryo UI", Font.PLAIN, 12));
 		scrollPane = new JScrollPane();
 		scrollPane.add(list);
-		
+
 		buttonClear = new JButton("履歴をクリアする");
 		buttonClear.setPreferredSize(new Dimension(300, 30));
 		buttonClear.addActionListener(new ActionListener() {
@@ -77,12 +77,12 @@ public class StatusLogView extends JDialog {
 				}
 			}
 		});
-		
+
 		add(list, BorderLayout.CENTER);
 		add(buttonClear, BorderLayout.SOUTH);
 		setVisible(true);
 	}
-	
+
 	/**
 	 * ログテキストを追加する.
 	 * @param text ログテキスト
@@ -98,7 +98,7 @@ public class StatusLogView extends JDialog {
  *
  */
 class SpriteCellRenderer extends DefaultListCellRenderer {
-	
+
 	@Override
 	public Component getListCellRendererComponent(JList list,
 			Object value, int index, boolean isSelected,

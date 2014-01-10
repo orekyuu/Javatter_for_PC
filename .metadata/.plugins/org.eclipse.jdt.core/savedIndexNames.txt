@@ -1,0 +1,19 @@
+INDEX VERSION 1.126+C:\Users\kyuuban\Documents\GitHub\Javatter_for_PC\.metadata\.plugins\org.eclipse.jdt.core
+1009923079.index
+2096379154.index
+2335280541.index
+4108140978.index
+33060834.index
+1401466374.index
+1038925233.index
+2729019007.index
+3841478153.index
+1808674097.index
+1248414052.index
+616417281.index
+3635553595.index
+1754685794.index
+2856824787.index
+154949564.index
+2762824742.index
+3023592264.index
