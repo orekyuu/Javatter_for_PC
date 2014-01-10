@@ -1,39 +1,5 @@
 package com.orekyuu.javatter.view;
 
-import java.awt.BorderLayout;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.HeadlessException;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.dnd.DropTarget;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import javax.imageio.ImageIO;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextArea;
-import javax.swing.border.BevelBorder;
-
-import twitter4j.Status;
-import twitter4j.Twitter;
-import twitter4j.TwitterException;
-
 import com.orekyuu.javatter.account.TwitterManager;
 import com.orekyuu.javatter.controller.MainWindowController;
 import com.orekyuu.javatter.main.Main;
@@ -43,6 +9,22 @@ import com.orekyuu.javatter.util.TwitterUtil;
 import com.orekyuu.javatter.viewobserver.ImagePreviewViewObserber;
 import com.orekyuu.javatter.viewobserver.TweetViewObserver;
 import com.orekyuu.javatter.viewobserver.UserEventViewObserver;
+import twitter4j.Status;
+import twitter4j.Twitter;
+import twitter4j.TwitterException;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import java.awt.*;
+import java.awt.dnd.DropTarget;
+import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * メインウィンドウ描画クラス
@@ -60,6 +42,8 @@ public class MainWindowView implements TweetViewObserver, ActionListener, UserEv
 	private JTabbedPane tab;
 	private JTabbedPane menuTab;
 	private TwitterUtil util;
+
+    private final String replyRegex = "(?<![0-9a-zA-Z'\\\\\"#@=:;])@([0-9a-zA-Z_]{1,15})";
 
 	/* ******** ステータスバー ******** */
 	/** ステータスバーパネル. */
@@ -300,8 +284,29 @@ public class MainWindowView implements TweetViewObserver, ActionListener, UserEv
 			builder.append("@");
 			builder.append(status.getUser().getScreenName());
 			builder.append(" ");
+
+            final Status rtStatus = status.isRetweet() ? status.getRetweetedStatus() : status;
+            String tweetText = rtStatus.getText();
+            try {
+                tweetText = tweetText.replace("@" + twitter.getScreenName() + " ", "");
+            } catch (TwitterException e) {
+                e.printStackTrace();
+            }
+            Matcher matcher = Pattern.compile(replyRegex).matcher(tweetText);
+            if (matcher.find()) {
+                int result = JOptionPane.showConfirmDialog(window, "全員に返信しますか？", "確認",
+                        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (result == JOptionPane.YES_OPTION) {
+                    do {
+                        builder.append(matcher.group());
+                        builder.append(" ");
+                    } while (matcher.find());
+                }
+            }
+
 			this.textArea.setText(builder.toString());
 			this.util.setReplyID(status);
+            this.textArea.requestFocus();
 		} else if (type.equals("rt")) {
 			try {
 				this.util.rt(twitter, status);
