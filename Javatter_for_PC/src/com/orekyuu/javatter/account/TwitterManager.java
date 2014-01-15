@@ -2,6 +2,7 @@ package com.orekyuu.javatter.account;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
+import twitter4j.conf.ConfigurationBuilder;
 
 /**
  * Twitter管理クラス
@@ -17,7 +18,8 @@ public class TwitterManager {
 	private String consumerSecret="XsRMKLGEerg1uLPziq5VfPQgsxiOR6i1iZUCD8KxTI";
 
 	private TwitterManager(){
-		twitter=TwitterFactory.getSingleton();
+        ConfigurationBuilder conf = new ConfigurationBuilder().setUseSSL(true);
+		twitter=new TwitterFactory(conf.build()).getInstance();
 		twitter.setOAuthConsumer(consumerKey, consumerSecret);
 	}
 
