@@ -24,114 +24,28 @@ import com.orekyuu.javatter.viewobserver.UserStreamViewObserver;
 
 /**
  * リプライタブ描画クラス
+ * 
  * @author orekyuu
- *
+ * 
  */
-public class ReplyView
-implements UserStreamViewObserver, IJavatterTab, AdjustmentListener
-{
-	private Component component;
-	private JPanel panel;
-	private UserEventViewObserver observer;
-	private JScrollPane tp;
-	private List<TweetObjectBuilder> builders;
-
-	private volatile Queue<Status> queue=new LinkedList<Status>();
-	private boolean queueFlag;
-	private boolean queueEvent;
-	private JPanel last;
+public class ReplyView extends TimeLineView implements UserStreamViewObserver, IJavatterTab, AdjustmentListener{
 
 	/**
-	 * @param observer ユーザーイベントリスナ
-	 * @param builders TweetObjectBuilderのリスト
+	 * @param observer
+	 *            ユーザーイベントリスナ
+	 * @param builders
+	 *            TweetObjectBuilderのリスト
 	 */
-	public ReplyView(UserEventViewObserver observer,List<TweetObjectBuilder> builders)
-	{
-		this.panel = new JPanel();
-		this.panel.setBackground(BackGroundColor.color);
-		this.panel.setLayout(new BoxLayout(this.panel, 3));
-		this.tp = new JScrollPane(22, 31);
-		this.tp.setViewportView(this.panel);
-		this.tp.getVerticalScrollBar().setUnitIncrement(20);
-		this.tp.getVerticalScrollBar().addAdjustmentListener(this);
-		this.component = this.tp;
-		this.observer = observer;
-		this.builders=builders;
+	public ReplyView(UserEventViewObserver observer, List<TweetObjectBuilder> builders){
+		super(observer, builders);
+		title = "Reply";
 	}
 
 	@Override
-	public void update(UserStreamLogic model)
-	{
-		if (model instanceof ReplyModel) {
-			if(tp.getVerticalScrollBar().getValue()==0&&!queueFlag){
-				addObject(model.getStatus());
-			}else{
-				queue.add(model.getStatus());
-				setNumber(queue.size());
-			}
+	public void update(UserStreamLogic model){
+		if (model instanceof ReplyModel){
+			addObject(model.getStatus());
 		}
 	}
 
-	private synchronized void setNumber(int num){
-		JTabbedPane tab=(JTabbedPane) component.getParent();
-		for(int i=0;i<tab.getTabCount();i++){
-			if(tab.getComponentAt(i) == this.component){
-				if(num!=0){
-					tab.setTitleAt(i, "Reply("+num+")");
-				}else{
-					tab.setTitleAt(i, "Reply");
-				}
-			}
-		}
-	}
-
-	private JPanel createObject(Status status){
-		TweetObjectFactory factory = new TweetObjectFactory(status,builders);
-		return (JPanel) factory.createTweetObject(this.observer).getComponent();
-	}
-
-	private synchronized void addObject(Status status){
-		JPanel jpanel = createObject(status);
-		jpanel.updateUI();
-		if (this.panel.getComponentCount() == 1000) this.panel.remove(999);
-		this.panel.add(jpanel, 0);
-		this.panel.updateUI();
-		last = jpanel;
-	}
-
-	@Override
-	public Component getComponent()
-	{
-		return this.component;
-	}
-
-	@Override
-	public void adjustmentValueChanged(AdjustmentEvent arg0) {
-		if(arg0.getValue()==0){
-			if(queueEvent){
-				return;
-			}
-			queueEvent = true;
-			Thread th=new Thread(){
-				@Override
-				public void run(){
-					queueFlag=true;
-					JPanel lastPanel = last;
-					while(!queue.isEmpty()){
-						addObject(queue.poll());
-					}
-					setNumber(0);
-					queueFlag=false;
-					if(lastPanel != null){
-						tp.validate();
-						tp.getVerticalScrollBar().setValue(lastPanel.getLocation().y);
-					}
-				}
-			};
-			th.start();
-		}
-		else{
-			queueEvent = false;
-		}
-	}
 }
