@@ -5,6 +5,7 @@ import java.util.Random;
 import twitter4j.Status;
 import twitter4j.TwitterException;
 
+import com.orekyuu.javatter.account.AccountManager;
 import com.orekyuu.javatter.account.TwitterManager;
 import com.orekyuu.javatter.util.SaveData;
 import com.orekyuu.javatter.util.TwitterUtil;
@@ -17,15 +18,9 @@ public class OmikuziUtil {
 	private SaveData data;
 
 	public OmikuziUtil(SaveData data){
-		try {
-			this.data=data;
-			user=TwitterManager.getInstance().getTwitter().getScreenName();
-			util=new TwitterUtil();
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (TwitterException e) {
-			e.printStackTrace();
-		}
+		this.data=data;
+		user=AccountManager.getInstance().getAccessToken().getScreenName();
+		util=new TwitterUtil();
 	}
 
 	private String omikuziMessage(){

@@ -4,6 +4,7 @@ import twitter4j.Status;
 import twitter4j.TwitterException;
 import twitter4j.UserStreamAdapter;
 
+import com.orekyuu.javatter.account.AccountManager;
 import com.orekyuu.javatter.account.TwitterManager;
 import com.orekyuu.javatter.logic.UserStreamLogic;
 
@@ -42,7 +43,7 @@ public class UserStreamController extends UserStreamAdapter{
 	}
 
 	private boolean isReply(Status status) throws IllegalStateException, TwitterException{
-		String user=TwitterManager.getInstance().getTwitter().getScreenName();
+		String user=AccountManager.getInstance().getAccessToken().getScreenName();
 		return user.equals(status.getInReplyToScreenName());
 	}
 }

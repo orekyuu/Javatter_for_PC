@@ -34,6 +34,7 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.User;
 
+import com.orekyuu.javatter.account.AccountManager;
 import com.orekyuu.javatter.account.TwitterManager;
 import com.orekyuu.javatter.controller.ProfileController;
 import com.orekyuu.javatter.main.Main;
@@ -267,7 +268,7 @@ public class ProfileView implements ProfileViewObserver,AdjustmentListener, User
 			panel.add(center,BorderLayout.CENTER);
 
 			Twitter twitter=TwitterManager.getInstance().getTwitter();
-			boolean flag=twitter.showFriendship(twitter.getScreenName(), user.getScreenName()).isSourceFollowingTarget();
+			boolean flag=twitter.showFriendship(AccountManager.getInstance().getAccessToken().getScreenName(), user.getScreenName()).isSourceFollowingTarget();
 			JToggleButton follow=new JToggleButton(flag?"フォロー中":"フォローする", flag);
 			follow.addActionListener(this);
 			panel.add(follow,BorderLayout.PAGE_END);
