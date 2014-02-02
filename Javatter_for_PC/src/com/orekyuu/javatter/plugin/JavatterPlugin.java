@@ -5,6 +5,7 @@ import java.io.File;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 
+import com.orekyuu.javatter.account.AccountManager;
 import com.orekyuu.javatter.account.TwitterManager;
 import com.orekyuu.javatter.controller.MainWindowController;
 import com.orekyuu.javatter.controller.UserStreamController;
@@ -65,13 +66,7 @@ public abstract class JavatterPlugin
 
 	public JavatterPlugin(){
 		twitter=TwitterManager.getInstance().getTwitter();
-		try {
-			userName=twitter.getScreenName();
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (TwitterException e) {
-			e.printStackTrace();
-		}
+		userName=AccountManager.getInstance().getAccessToken().getScreenName();
 		dir=new File("SaveData/"+getPluginName());
 		registerSaveData();
 		configTab=getPluginConfigViewObserver();

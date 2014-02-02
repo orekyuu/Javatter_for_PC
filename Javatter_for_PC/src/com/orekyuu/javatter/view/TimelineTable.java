@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.lang.reflect.Method;
 import java.util.EventObject;
 
+import javax.swing.CellRendererPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
@@ -90,5 +91,15 @@ public class TimelineTable extends JTable{
 			removeEditor();
 		}
 		model.addRow(new Object[] {o});
+	}
+
+	@Override
+	public void removeEditor(){
+		for (Component c : getComponents()){
+			if (!(c instanceof CellRendererPane)){
+				remove(c);
+			}
+		}
+		super.removeEditor();
 	}
 }

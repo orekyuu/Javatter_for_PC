@@ -9,6 +9,7 @@ import twitter4j.StatusUpdate;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 
+import com.orekyuu.javatter.account.AccountManager;
 import com.orekyuu.javatter.main.Main;
 import com.orekyuu.javatter.view.MainWindowView;
 
@@ -85,8 +86,8 @@ public class TwitterUtil {
 				}
 			}
 
-			private boolean canRetweet(Status status) throws IllegalStateException, TwitterException{
-				if(status.getUser().getScreenName().equals(twitter.getScreenName()))
+			private boolean canRetweet(Status status){
+				if(status.getUser().getScreenName().equals(AccountManager.getInstance().getAccessToken().getScreenName()))
 					return false;
 				if(status.isRetweet()){
 					return canRetweet(status.getRetweetedStatus());

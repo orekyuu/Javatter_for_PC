@@ -217,6 +217,6 @@ public class MainWindowController
 			controller.login();
 		}
 
-		this.view.setTitle(this.twitter.getScreenName());
+		this.view.setTitle(AccountManager.getInstance().getAccessToken().getScreenName());
 	}
 }

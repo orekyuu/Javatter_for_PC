@@ -8,6 +8,7 @@ import twitter4j.TwitterException;
 import twitter4j.User;
 import twitter4j.UserList;
 
+import com.orekyuu.javatter.account.AccountManager;
 import com.orekyuu.javatter.account.TwitterManager;
 import com.orekyuu.javatter.model.PopupModel;
 
@@ -70,14 +71,8 @@ public class PopupController extends UserStreamController{
 
 	@Override
 	public void onBlock(User arg0, User arg1) {
-		try {
-			if(!arg0.getScreenName().equals(TwitterManager.getInstance().getTwitter().getScreenName())){
-				model.onBlock(arg0);
-			}
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (TwitterException e) {
-			e.printStackTrace();
+		if(!arg0.getScreenName().equals(AccountManager.getInstance().getAccessToken().getScreenName())){
+			model.onBlock(arg0);
 		}
 	}
 
@@ -93,27 +88,15 @@ public class PopupController extends UserStreamController{
 
 	@Override
 	public void onFavorite(User arg0, User arg1, Status arg2) {
-		try {
-			if(!arg0.getScreenName().equals(TwitterManager.getInstance().getTwitter().getScreenName())){
-				model.onFav(arg0, arg2);
-			}
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (TwitterException e) {
-			e.printStackTrace();
+		if(!arg0.getScreenName().equals(AccountManager.getInstance().getAccessToken().getScreenName())){
+			model.onFav(arg0, arg2);
 		}
 	}
 
 	@Override
 	public void onFollow(User arg0, User arg1) {
-		try {
-			if(!arg0.getScreenName().equals(TwitterManager.getInstance().getTwitter().getScreenName()))
-			model.onFollow(arg0);
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (TwitterException e) {
-			e.printStackTrace();
-		}
+			if(!arg0.getScreenName().equals(AccountManager.getInstance().getAccessToken().getScreenName()))
+				model.onFollow(arg0);
 	}
 
 	@Override
