@@ -89,7 +89,6 @@ public class MainWindowView implements TweetViewObserver, ActionListener, UserEv
 		this.window.setSize(700, 600);
 		this.window.setIconImage(ImageManager.getInstance().getImage("javatter"));
 		this.window.setDefaultCloseOperation(3);
-		this.window.setResizable(false);
 
 		Container container = this.window.getContentPane();
 		container.setLayout(new BorderLayout());
