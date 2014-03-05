@@ -118,16 +118,18 @@ public class TimeLineView implements UserStreamViewObserver, IJavatterTab, Adjus
 					}
 					SwingUtilities.invokeLater(new Runnable(){
 						public void run(){
-							int c = q.size();
-							int height = 0;
+							final int c = q.size();
 							while (!q.isEmpty()){
 								timeline.addTop(q.poll());
 							}
 							for (int i = 0; i < c; i++){
 								timeline.prepareRenderer(timeline.getCellRenderer(i, 0), i, 0);
-								height += timeline.getRowHeight(i);
 							}
-							tp.getVerticalScrollBar().setValue(height);
+							SwingUtilities.invokeLater(new Runnable(){
+								public void run(){
+									tp.getVerticalScrollBar().setValue(timeline.getCellRect(c, 0, true).y);
+								}
+							});
 							setNumber(0);
 							queueFlag = false;
 						}
